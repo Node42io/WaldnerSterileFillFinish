@@ -1,0 +1,14 @@
+/* Citation marker — Aeonik / label-XS, capitalize, link colour. */
+.number {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-family: var(--font-family-sans);
+  font-weight: var(--font-weight-regular);
+  font-size: var(--font-size-label-xs);
+  line-height: var(--line-height-label-xs);
+  letter-spacing: var(--letter-spacing-label-xs);
+  text-transform: capitalize;
+  color: var(--text-link);
+  white-space: nowrap;
+}

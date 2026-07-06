@@ -1,0 +1,79 @@
+.sidebar {
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  /* Extra breathing room between the brand header and the item list. */
+  gap: var(--space-400);
+  box-sizing: border-box;
+  /* Matches the design-system grid sidebar column (Foundations/Grid). */
+  width: 168px;
+  height: 100%;
+  padding: var(--space-200) var(--space-200) var(--space-400);
+  background: var(--surface-default-default);
+}
+
+.sidebar.collapsed {
+  width: 68px;
+}
+
+/* Header row — brand on the left, collapse toggle pinned to the right.
+   Horizontal padding matches the SidebarItem inner padding so the brand
+   lines up with the item icons/labels below. */
+.header {
+  display: flex;
+  align-items: center;
+  width: 100%;
+  padding-inline: var(--space-200);
+}
+
+/* Collapsed rail (68px) can't fit brand + toggle side by side, so stack
+   them centered — the symbol logo sits above the expand toggle. */
+.sidebar.collapsed .header {
+  flex-direction: column;
+  align-items: center;
+  gap: var(--space-200);
+  padding-inline: 0;
+}
+
+/* Brand/logo slot */
+.brand {
+  display: inline-flex;
+  align-items: center;
+  min-width: 0;
+  overflow: hidden;
+  color: var(--text-headings);
+}
+
+/* Collapse / expand toggle — sits top-right */
+.toggle {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  margin-left: auto;
+  padding: var(--space-100);
+  border: 0;
+  border-radius: var(--radius-xs);
+  background: transparent;
+  color: var(--icon-subtle);
+  cursor: pointer;
+}
+
+/* In the collapsed column the auto-margin would misalign the toggle. */
+.sidebar.collapsed .toggle {
+  margin-left: 0;
+}
+
+.toggle:focus-visible {
+  outline: none;
+  box-shadow: var(--shadow-focus);
+}
+
+/* Item list — fills the rail width */
+.list {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: var(--space-200);
+  width: 100%;
+}

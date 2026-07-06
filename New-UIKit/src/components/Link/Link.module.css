@@ -1,0 +1,104 @@
+/* Base (Aeonik / Body, --text-link) */
+.link {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-100);
+  width: fit-content;
+  padding: var(--space-50) var(--space-100);
+  border: 1px solid transparent;
+  border-radius: var(--radius-xs);
+  font-family: var(--font-family-sans);
+  font-weight: var(--font-weight-regular);
+  color: var(--text-link);
+  text-decoration: none;
+  white-space: nowrap;
+  cursor: pointer;
+  transition:
+    color var(--duration-fast) var(--easing-standard),
+    border-color var(--duration-fast) var(--easing-standard),
+    box-shadow var(--duration-fast) var(--easing-standard);
+}
+
+.link:hover {
+  color: var(--text-action-tertiary-hover);
+}
+
+.link:focus-visible {
+  outline: none;
+  border-color: var(--border-action-focused);
+  box-shadow: var(--shadow-focus);
+}
+
+/* ---------- Underline (label only, not the icons) ---------- */
+.underline .label {
+  text-decoration: underline;
+  text-decoration-skip-ink: none;
+  text-underline-position: from-font;
+}
+
+/* ---------- Selected / current ---------- */
+.selected,
+.selected:hover {
+  color: var(--text-action-tertiary);
+  font-weight: var(--font-weight-medium);
+}
+
+/* ---------- Disabled ---------- */
+.disabled,
+.disabled:hover {
+  color: var(--text-action-disabled);
+  cursor: not-allowed;
+}
+
+/* ---------- Icon ---------- */
+.icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  color: currentColor;
+}
+
+.icon svg {
+  width: 100%;
+  height: 100%;
+}
+
+/* ---------- Label ---------- */
+.label {
+  display: inline-block;
+}
+
+/* ---------- Sizes ---------- */
+.size-sm {
+  font-size: var(--font-size-b3);
+  line-height: var(--line-height-b3);
+  letter-spacing: var(--letter-spacing-b3);
+}
+
+.size-sm .icon {
+  width: 14px;
+  height: 14px;
+}
+
+.size-md {
+  font-size: var(--font-size-b2);
+  line-height: var(--line-height-b2);
+  letter-spacing: var(--letter-spacing-b2);
+}
+
+.size-md .icon {
+  width: 20px;
+  height: 20px;
+}
+
+.size-lg {
+  font-size: var(--font-size-b1);
+  line-height: var(--line-height-b1);
+  letter-spacing: var(--letter-spacing-b1);
+}
+
+.size-lg .icon {
+  width: 24px;
+  height: 24px;
+}

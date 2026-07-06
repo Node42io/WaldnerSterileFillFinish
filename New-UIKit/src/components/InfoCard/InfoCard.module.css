@@ -1,0 +1,58 @@
+.card {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: var(--space-100);
+  width: 100%;
+  /* Fill the row height when stretched, so cards on one row match the tallest. */
+  height: 100%;
+}
+
+/* ---------- Header (badge + CTA) ---------- */
+.header {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  width: 100%;
+}
+
+/* ---------- Content box ---------- */
+.content {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: var(--space-400);
+  width: 100%;
+  /* Grow to fill the card height (so a stretched card's box matches the
+     tallest); flex-basis auto keeps a lone card hugging its content. */
+  flex: 1 1 auto;
+  padding: var(--space-400);
+  border-radius: var(--radius-md);
+  background: var(--surface-default-default-2);
+}
+
+.title {
+  font-family: var(--font-family-sans);
+  font-weight: var(--font-weight-medium);
+  font-size: var(--font-size-h5);
+  line-height: var(--line-height-h5);
+  letter-spacing: var(--letter-spacing-h5);
+  color: var(--text-body);
+}
+
+/* B2 Medium title variant (keeps the medium weight, smaller body size). */
+.title-b2 {
+  font-size: var(--font-size-b2);
+  line-height: var(--line-height-b2);
+  letter-spacing: var(--letter-spacing-b2);
+}
+
+.text {
+  margin: 0;
+  font-family: var(--font-family-sans);
+  font-weight: var(--font-weight-regular);
+  font-size: var(--font-size-b2);
+  line-height: var(--line-height-b2);
+  letter-spacing: var(--letter-spacing-b2);
+  color: var(--text-body);
+}

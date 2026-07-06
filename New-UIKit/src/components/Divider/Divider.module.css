@@ -1,0 +1,17 @@
+.divider {
+  background: var(--border-card);
+  border: 0;
+  flex-shrink: 0;
+}
+
+.horizontal {
+  width: 100%;
+  height: var(--border-width-default);
+}
+
+.vertical {
+  width: var(--border-width-default);
+  /* Stretch to the flex row's height. `height: 100%` would need a definite
+     parent height and collapse to 0 in an auto-height row, so rely on stretch. */
+  align-self: stretch;
+}

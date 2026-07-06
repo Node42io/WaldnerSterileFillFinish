@@ -1,0 +1,117 @@
+.field {
+  display: flex;
+  align-items: flex-start;
+}
+
+/* Horizontal variants — label/title beside the value. */
+.variant-short-title,
+.variant-long-title {
+  flex-direction: row;
+  gap: var(--space-200);
+  /* Label/title and value have different sizes & line-heights — align their
+     text baselines, not the line-boxes, so the two never drift vertically. */
+  align-items: baseline;
+}
+
+/* Stacked variants — label/title above the content. */
+.variant-vertical,
+.variant-legend,
+.variant-badge-sx,
+.variant-badge-dx {
+  flex-direction: column;
+  gap: var(--space-100);
+}
+
+/* ---------- Content row (legend / badge variants) ---------- */
+.content {
+  display: flex;
+  align-items: center;
+}
+
+.variant-legend .content {
+  gap: var(--space-50);
+}
+
+.variant-badge-sx .content,
+.variant-badge-dx .content {
+  gap: var(--space-200);
+}
+
+/* ---------- Swatch (legend marker) ---------- */
+.swatch {
+  flex-shrink: 0;
+  width: 12px;
+  height: 12px;
+  border-radius: var(--radius-2xs);
+  background-color: var(--primary-default);
+}
+
+/* ---------- Badge pill (badge-sx / badge-dx) ---------- */
+.badge {
+  display: inline-flex;
+  flex-shrink: 0;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-50);
+  padding: var(--space-50) var(--space-100);
+  border-radius: var(--radius-md);
+  background: var(--surface-default-default-2);
+  color: var(--text-body);
+  font-family: var(--font-family-sans);
+  font-weight: var(--font-weight-regular);
+  font-size: var(--font-size-label-xs);
+  line-height: var(--line-height-label-xs);
+  letter-spacing: var(--letter-spacing-label-xs);
+  text-align: center;
+  text-transform: capitalize;
+  white-space: nowrap;
+}
+
+/* ---------- Label (Aeonik / label-XS, capitalize) ---------- */
+.label {
+  flex-shrink: 0;
+  font-family: var(--font-family-sans);
+  font-weight: var(--font-weight-regular);
+  font-size: var(--font-size-label-xs);
+  line-height: var(--line-height-label-xs);
+  letter-spacing: var(--letter-spacing-label-xs);
+  text-transform: capitalize;
+  color: var(--text-labels);
+}
+
+/* Fixed label column widths (Figma: 56px / 116px). */
+.variant-short-title .label {
+  width: 56px;
+}
+
+.variant-long-title .label,
+.variant-vertical .label,
+.variant-legend .label,
+.variant-badge-sx .label,
+.variant-badge-dx .label {
+  width: 116px;
+}
+
+/* ---------- Title role (Aeonik Medium / label-XS) — opt-in via titleAs="title" ----------
+   Applied alongside .label, so the variant column widths still match; only the
+   typography is overridden (defined after .label → wins at equal specificity).
+   Same size as .label (label-XS); distinguished by weight + heading colour. */
+.title {
+  font-family: var(--font-family-sans);
+  font-weight: var(--font-weight-medium);
+  font-size: var(--font-size-label-xs);
+  line-height: var(--line-height-label-xs);
+  letter-spacing: var(--letter-spacing-label-xs);
+  text-transform: none;
+  color: var(--text-headings);
+}
+
+/* ---------- Text (Aeonik / B2) ---------- */
+.text {
+  font-family: var(--font-family-sans);
+  font-weight: var(--font-weight-regular);
+  font-size: var(--font-size-b2);
+  line-height: var(--line-height-b2);
+  letter-spacing: var(--letter-spacing-b2);
+  color: var(--text-body);
+}

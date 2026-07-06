@@ -1,0 +1,151 @@
+.frame {
+  width: 100%;
+  border-radius: var(--radius-md);
+  background: var(--surface-default-default-2);
+  overflow: hidden;
+}
+
+.scroll {
+  width: 100%;
+  overflow-x: auto;
+}
+
+.table {
+  width: 100%;
+  border-collapse: collapse;
+  font-family: var(--font-family-sans);
+  color: var(--text-body);
+}
+
+/* ---------- Header cell ---------- */
+.header-cell {
+  padding: var(--space-200) var(--space-300);
+  text-align: left;
+  font-family: var(--font-family-sans);
+  font-weight: var(--font-weight-regular);
+  font-size: var(--font-size-label-xs);
+  line-height: var(--line-height-label-xs);
+  letter-spacing: var(--letter-spacing-label-xs);
+  text-transform: capitalize;
+  color: var(--text-labels);
+  white-space: nowrap;
+  border-bottom: var(--border-width-default) solid var(--border-default-default);
+}
+
+/* ---------- Data cell ---------- */
+.cell {
+  padding: var(--space-200) var(--space-300);
+  text-align: left;
+  vertical-align: middle;
+  font-weight: var(--font-weight-regular);
+  font-size: var(--font-size-b2);
+  line-height: var(--line-height-b2);
+  letter-spacing: var(--letter-spacing-b2);
+  color: var(--text-body);
+  border-bottom: var(--border-width-default) solid
+    var(--border-default-default-lighter);
+}
+
+/* Last body row sits on the frame border — drop its own divider. */
+.body .row:last-child .cell {
+  border-bottom: none;
+}
+
+/* Icon-only cell — hug the icon: shrink the column to its content, tighten
+   the horizontal padding, and center the icon. */
+.cell-icon {
+  width: 1%;
+  white-space: nowrap;
+  padding-left: var(--space-200);
+  padding-right: var(--space-200);
+  text-align: center;
+  color: var(--icon-body);
+}
+
+.cell-icon > * {
+  display: inline-flex;
+  vertical-align: middle;
+}
+
+/* Alignment modifiers (apply to th + td). */
+.align-left {
+  text-align: left;
+}
+.align-center {
+  text-align: center;
+}
+.align-right {
+  text-align: right;
+}
+
+/* ---------- Rows ---------- */
+.row-interactive {
+  cursor: pointer;
+  transition: background-color var(--duration-fast) var(--easing-standard);
+}
+
+/* ---------- Striping variants ---------- */
+/* Base band is the frame surface (--surface-default-default-2); the alternate
+   band uses --surface-default-default-3. Opt in via the `striped` prop. */
+
+/* Rows — every other body row. */
+.striped-rows .row:nth-child(even) {
+  background: var(--surface-default-default-3);
+}
+
+/* Columns — every other column (paints header + body cells). Uses the
+   2-5 surface (midway between default-2 and default-3) for a softer stripe. */
+.striped-columns .row > :nth-child(even) {
+  background: var(--surface-default-default-2-5);
+}
+
+/* Row state overrides the stripe (placed after, with equal/higher specificity). */
+.body .row.row-selected {
+  background: var(--surface-default-selected);
+}
+
+.body .row.row-interactive:hover {
+  background: var(--surface-default-hover);
+}
+
+/* With column striping the stripe lives on the cells (<td>), painting over the
+   row's hover/selected background — so re-apply those states to the striped
+   cells too, otherwise hover only shows on the un-striped columns. */
+.striped-columns .row.row-interactive:hover > :nth-child(even) {
+  background: var(--surface-default-hover);
+}
+
+.striped-columns .row.row-selected > :nth-child(even) {
+  background: var(--surface-default-selected);
+}
+
+/* ---------- Header affordances (label + info + sort icons) ---------- */
+.header-inner {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-100);
+}
+
+.header-label {
+  font: inherit;
+  letter-spacing: inherit;
+  text-transform: inherit;
+}
+
+.header-icon {
+  display: inline-flex;
+  align-items: center;
+  margin: 0;
+  padding: 0;
+  border: 0;
+  background: transparent;
+  color: var(--icon-action-tertiary);
+  cursor: pointer;
+}
+
+.header-icon:focus-visible {
+  outline: none;
+  border-radius: var(--radius-2xs);
+  box-shadow: var(--shadow-focus);
+}
+

@@ -1,0 +1,21 @@
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html {
+  font-family: var(--font-family-sans);
+  font-size: var(--font-size-b1);
+  line-height: var(--line-height-b1);
+  color: var(--text-body);
+  background: var(--color-page);
+  /* Grayscale antialiasing so light-on-dark text isn't rendered heavier than
+     dark-on-light — keeps perceived weight consistent across themes. */
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+body {
+  margin: 0;
+}

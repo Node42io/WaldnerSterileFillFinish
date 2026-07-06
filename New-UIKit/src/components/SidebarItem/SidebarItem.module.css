@@ -1,0 +1,120 @@
+.root {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-200);
+  box-sizing: border-box;
+  width: 100%;
+  padding: var(--space-200);
+  border-radius: var(--radius-full);
+  color: var(--text-body);
+}
+
+/* Open block — squared-off container that wraps the sub-items */
+.root.open {
+  border-radius: var(--radius-md);
+}
+
+/* Collapsed rail — icon-only, symmetric padding, centered */
+.root.collapsed {
+  padding: var(--space-200) var(--space-400);
+}
+
+.root.collapsed .header {
+  justify-content: center;
+}
+
+/* Header row — flex container holding the select button + the caret toggle */
+.header {
+  display: flex;
+  align-items: center;
+  gap: var(--space-100);
+  width: 100%;
+}
+
+/* Row button — selects/activates the item (and reveals its sub-items) */
+.row {
+  display: flex;
+  align-items: center;
+  gap: var(--space-100);
+  flex: 1 0 0;
+  min-width: 0;
+  padding: 0;
+  border: 0;
+  background: transparent;
+  color: inherit;
+  font-family: var(--font-family-sans);
+  font-weight: var(--font-weight-medium);
+  font-size: var(--font-size-b3);
+  line-height: var(--line-height-b3);
+  letter-spacing: var(--letter-spacing-b3);
+  text-align: left;
+  cursor: pointer;
+}
+
+/* Caret button — toggles the sub-items open/closed */
+.caret {
+  display: inline-flex;
+  align-items: center;
+  flex-shrink: 0;
+  padding: 0;
+  border: 0;
+  background: transparent;
+  color: var(--icon-body);
+  cursor: pointer;
+}
+
+.icon {
+  display: inline-flex;
+  flex-shrink: 0;
+  color: var(--icon-body);
+}
+
+.label {
+  flex: 1 0 0;
+  min-width: 0;
+}
+
+/* Sub-items list — breaks out of the root's right padding so each sub-item
+   fills the full item width and runs under the caret. Left indent is kept
+   so sub-item labels stay aligned under the parent label. */
+.sublist {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-200);
+  margin-right: calc(-1 * var(--space-200));
+}
+
+/* ---------- States ---------- */
+
+/* hover — scoped to the interactive controls, excluded when selected/disabled */
+.root:not(.selected):has(.row:hover:not(:disabled)),
+.root:not(.selected):has(.caret:hover:not(:disabled)) {
+  background: var(--surface-default-default-2);
+}
+
+/* focused — control focus rings the whole block */
+.root:has(.row:focus-visible),
+.root:has(.caret:focus-visible) {
+  background: var(--surface-default-default);
+  box-shadow: var(--shadow-focus);
+}
+
+.row:focus-visible,
+.caret:focus-visible {
+  outline: none;
+}
+
+/* selected — yellow-tinted surface; label + icon keep the default body colour */
+.root.selected {
+  background: var(--surface-selected-colored);
+}
+
+/* disabled */
+.root:has(.row:disabled) {
+  color: var(--text-action-disabled);
+}
+
+.row:disabled,
+.caret:disabled {
+  cursor: not-allowed;
+}

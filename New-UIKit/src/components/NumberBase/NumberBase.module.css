@@ -1,0 +1,73 @@
+.base {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-100);
+}
+
+/* ---------- Value (Aeonik) ---------- */
+.value {
+  font-family: var(--font-family-sans);
+  color: var(--text-headings);
+}
+
+/* ---------- Unit (Aeonik, capitalize) ---------- */
+.unit {
+  font-family: var(--font-family-sans);
+  font-weight: var(--font-weight-regular);
+  text-transform: capitalize;
+  color: var(--text-labels);
+}
+
+/* ---------- Sizes ---------- */
+/* sm — value: B1 Regular · unit: label-XS */
+.size-sm .value {
+  font-weight: var(--font-weight-regular);
+  font-size: var(--font-size-b1);
+  line-height: var(--line-height-b1);
+  letter-spacing: var(--letter-spacing-b1);
+}
+.size-sm .unit {
+  font-size: var(--font-size-label-xs);
+  line-height: var(--line-height-label-xs);
+  letter-spacing: var(--letter-spacing-label-xs);
+}
+
+/* md — value: H4 Medium · unit: label-M */
+.size-md .value {
+  font-weight: var(--font-weight-medium);
+  font-size: var(--font-size-h4);
+  line-height: var(--line-height-h4);
+  letter-spacing: var(--letter-spacing-h4);
+}
+.size-md .unit {
+  font-size: var(--font-size-label-m);
+  line-height: var(--line-height-label-m);
+  letter-spacing: var(--letter-spacing-label-m);
+}
+
+/* lg — value: H2 Medium · unit: label-L */
+.size-lg .value {
+  font-weight: var(--font-weight-medium);
+  font-size: var(--font-size-h2);
+  line-height: var(--line-height-h2);
+  letter-spacing: var(--letter-spacing-h2);
+}
+.size-lg .unit {
+  font-size: var(--font-size-label-l);
+  line-height: var(--line-height-label-l);
+  letter-spacing: var(--letter-spacing-label-l);
+}
+
+/* xl — value: H1-S Medium · unit: label-L (Figma "lxl") */
+.size-xl .value {
+  font-weight: var(--font-weight-medium);
+  font-size: var(--font-size-h1-s);
+  line-height: var(--line-height-h1-s);
+  letter-spacing: var(--letter-spacing-h1-s);
+}
+.size-xl .unit {
+  font-size: var(--font-size-label-l);
+  line-height: var(--line-height-label-l);
+  letter-spacing: var(--letter-spacing-label-l);
+}

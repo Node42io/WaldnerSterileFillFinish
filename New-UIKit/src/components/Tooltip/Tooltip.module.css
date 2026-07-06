@@ -1,0 +1,141 @@
+/* Bubble */
+.tooltip {
+  position: relative;
+  display: inline-flex;
+  flex-direction: column;
+  align-items: flex-start;
+  padding: var(--space-200) var(--space-300);
+  border-radius: var(--radius-xs);
+  background: var(--surface-default-default-2);
+  box-shadow: var(--shadow-drop);
+}
+
+/* ---------- Simple body (Aeonik Regular / B3, centred) ---------- */
+.body {
+  margin: 0;
+  width: 100%;
+  font-family: var(--font-family-sans);
+  font-weight: var(--font-weight-regular);
+  font-size: var(--font-size-b3);
+  line-height: var(--line-height-b3);
+  letter-spacing: var(--letter-spacing-b3);
+  color: var(--text-body);
+  text-align: center;
+  white-space: nowrap;
+}
+
+/* When a maxWidth is set, let simple body text wrap within it. */
+.wrap-text .body {
+  white-space: normal;
+}
+
+/* ---------- Rich variant ---------- */
+.rich {
+  width: 320px;
+  padding: var(--space-200);
+}
+
+.content {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-200);
+  width: 100%;
+}
+
+.text {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-100);
+  width: 100%;
+}
+
+.title {
+  margin: 0;
+  font-family: var(--font-family-sans);
+  font-weight: var(--font-weight-medium);
+  font-size: var(--font-size-b3);
+  line-height: var(--line-height-b3);
+  letter-spacing: var(--letter-spacing-b3);
+  color: var(--text-headings);
+}
+
+.description {
+  margin: 0;
+  font-family: var(--font-family-sans);
+  font-weight: var(--font-weight-regular);
+  font-size: var(--font-size-b3);
+  line-height: var(--line-height-b3);
+  letter-spacing: var(--letter-spacing-b3);
+  color: var(--text-description);
+}
+
+.action {
+  display: flex;
+}
+
+/* ---------- Arrow (border triangle, same colour as the bubble) ---------- */
+.arrow {
+  position: absolute;
+  width: 0;
+  height: 0;
+}
+
+/* Bottom edge — points down */
+.arrow-bottom-center .arrow,
+.arrow-bottom-left .arrow,
+.arrow-bottom-right .arrow {
+  bottom: -6px;
+  border-left: 8px solid transparent;
+  border-right: 8px solid transparent;
+  border-top: 6px solid var(--surface-default-default-2);
+}
+
+.arrow-bottom-center .arrow {
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+/* Wider arrow (28px) for the off-centre bottom variants, matching Figma. */
+.arrow-bottom-left .arrow,
+.arrow-bottom-right .arrow {
+  border-left-width: 14px;
+  border-right-width: 14px;
+}
+
+.arrow-bottom-left .arrow {
+  left: 12px;
+}
+
+.arrow-bottom-right .arrow {
+  right: 12px;
+}
+
+/* Top edge — points up */
+.arrow-top-center .arrow {
+  top: -6px;
+  left: 50%;
+  transform: translateX(-50%);
+  border-left: 8px solid transparent;
+  border-right: 8px solid transparent;
+  border-bottom: 6px solid var(--surface-default-default-2);
+}
+
+/* Left edge — points left */
+.arrow-left .arrow {
+  left: -6px;
+  top: 50%;
+  transform: translateY(-50%);
+  border-top: 8px solid transparent;
+  border-bottom: 8px solid transparent;
+  border-right: 6px solid var(--surface-default-default-2);
+}
+
+/* Right edge — points right */
+.arrow-right .arrow {
+  right: -6px;
+  top: 50%;
+  transform: translateY(-50%);
+  border-top: 8px solid transparent;
+  border-bottom: 8px solid transparent;
+  border-left: 6px solid var(--surface-default-default-2);
+}

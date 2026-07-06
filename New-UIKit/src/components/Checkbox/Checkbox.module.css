@@ -1,0 +1,105 @@
+/* ---------- Row (box + optional label) ---------- */
+.root {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-200);
+  cursor: pointer;
+}
+
+.root.disabled {
+  cursor: not-allowed;
+}
+
+/* ---------- Control wrapper (positions the native input over the box) ---------- */
+.control {
+  position: relative;
+  display: inline-flex;
+  flex-shrink: 0;
+  width: 16px;
+  height: 16px;
+}
+
+/* Native input sits on top, transparent — keeps a11y + keyboard/click behaviour. */
+.input {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  margin: 0;
+  opacity: 0;
+  cursor: inherit;
+}
+
+/* ---------- Visual box ---------- */
+.box {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: 100%;
+  border: var(--border-width-default) solid var(--border-default-default);
+  border-radius: var(--radius-2xs);
+  background: var(--surface-default-default);
+  color: transparent;
+  transition:
+    background-color var(--duration-fast) var(--easing-standard),
+    border-color var(--duration-fast) var(--easing-standard),
+    color var(--duration-fast) var(--easing-standard);
+}
+
+/* ---------- Check / dash glyph ---------- */
+.mark {
+  width: 100%;
+  height: 100%;
+}
+
+/* ---------- Hover ---------- */
+.input:hover:not(:disabled) + .box {
+  border-color: var(--border-default-hover);
+}
+
+/* ---------- Checked / indeterminate (solid accent fill) ---------- */
+.input:checked + .box,
+.input:indeterminate + .box {
+  border-color: var(--surface-default-selected-strong);
+  background: var(--surface-default-selected-strong);
+  color: var(--text-on-selected-strong);
+}
+
+.input:checked:hover:not(:disabled) + .box,
+.input:indeterminate:hover:not(:disabled) + .box {
+  border-color: var(--border-default-selected);
+}
+
+/* ---------- Focus-visible ---------- */
+.input:focus-visible + .box {
+  outline: none;
+  box-shadow: var(--shadow-focus);
+}
+
+/* ---------- Disabled ---------- */
+.input:disabled + .box {
+  border-color: var(--border-action-disabled);
+  background: var(--surface-default-disabled);
+}
+
+.input:disabled:checked + .box,
+.input:disabled:indeterminate + .box {
+  border-color: var(--border-action-disabled);
+  background: var(--surface-default-disabled);
+  color: var(--text-action-disabled);
+}
+
+/* ---------- Label ---------- */
+.label {
+  color: var(--text-body);
+  font-family: var(--font-family-sans);
+  font-weight: var(--font-weight-regular);
+  font-size: var(--font-size-b2);
+  line-height: var(--line-height-b2);
+  letter-spacing: var(--letter-spacing-b2);
+}
+
+.root.disabled .label {
+  color: var(--text-action-disabled);
+}

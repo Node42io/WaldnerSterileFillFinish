@@ -1,0 +1,692 @@
+/* =============================================================================
+   Design tokens — 3 layers
+   1. BRAND   → raw color scales (1:1 with Figma variables)
+   2. ALIAS   → semantic roles (primary, secondary, danger, ...)
+   3. MAPPED  → concrete applications (surface, text, icon, border)
+   Chain: mapped → alias → brand. No mapped token references a brand directly.
+
+   RULE FOR COMPONENT AUTHORS
+   --------------------------
+   Components must consume mapped tokens via var(--name). Hex values, rgb(),
+   and named colors are forbidden inside *.module.css files. To change how a
+   component looks, edit the mapped token here (or in Figma, which is the
+   source of truth) — never patch the component file directly. This keeps the
+   light/dark modes in sync and preserves parity with the design system.
+   ============================================================================= */
+
+:root {
+  /* ---------------------------------------------------------------------------
+     1. BRAND
+     --------------------------------------------------------------------------- */
+
+  /* Yellow (default = #f6ee5c — "Soft lime+" primary-action anchor) */
+  --yellow-50: #fffff0;
+  --yellow-100: #feffe0;
+  --yellow-200: #feffc7;
+  --yellow-300: #feffb3;
+  --yellow-400: #fdffa3;
+  --yellow-default: #f6ee5c; /* primary button default */
+  --yellow-600: #e6dc42; /* primary button hover */
+  --yellow-700: #c9bf2b; /* primary button active */
+  --yellow-800: #aca215;
+  --yellow-900: #7c7213;
+  --yellow-1050: #4f460d;
+  --yellow-1200: #271807;
+
+  /* Dark Blue */
+  --dark-blue-25: #eef0f2;
+  --dark-blue-50: #d9dbde;
+  --dark-blue-100: #c0c4ca;
+  --dark-blue-200: #9298a2;
+  --dark-blue-300: #6a727d;
+  --dark-blue-400: #4b5158;
+  --dark-blue-450: #343a42;
+  --dark-blue-default: #262b33;
+  --dark-blue-550: #23272e; /* midpoint of dark-blue-default and dark-blue-600 */
+  --dark-blue-600: #1f2329;
+  --dark-blue-700: #1b1e23;
+  --dark-blue-800: #181a1e;
+  --dark-blue-900: #16181c;
+  --dark-blue-1050: #15171a;
+
+  /* Alternative Blue */
+  --alternative-blue-50: #e5ebef;
+  --alternative-blue-100: #bbc8d5;
+  --alternative-blue-200: #9da8bf;
+  --alternative-blue-300: #7d88a9;
+  --alternative-blue-400: #5e6c93;
+  --alternative-blue-default: #3f507d;
+  --alternative-blue-600: #364369;
+  --alternative-blue-700: #2c3855;
+  --alternative-blue-800: #242d41;
+  --alternative-blue-900: #1b212d;
+  --alternative-blue-1050: #14171e;
+
+  /* Red */
+  --red-50: #f2eae4;
+  --red-100: #efd6d0;
+  --red-200: #eabab6;
+  --red-300: #e69e9c;
+  --red-400: #e18382;
+  --red-default: #dd6767;
+  --red-600: #a44b4c;
+  --red-700: #8d4649;
+  --red-800: #643738;
+  --red-900: #3c2729;
+  --red-1050: #1e1a1d;
+
+  /* Orange */
+  --orange-50: #f3eee4;
+  --orange-100: #f1e6d2;
+  --orange-200: #eedaba;
+  --orange-300: #edcda2;
+  --orange-400: #eac18a;
+  --orange-default: #e8b571;
+  --orange-600: #9f7c4d;
+  --orange-700: #816641;
+  --orange-800: #69553c;
+  --orange-900: #3e362b;
+  --orange-1050: #1e1e1e;
+
+  /* Green */
+  --green-50: #f0f1e4;
+  --green-100: #e5edd0;
+  --green-200: #d6e9b6;
+  --green-300: #c8e59c;
+  --green-400: #b9e182;
+  --green-default: #aadd67;
+  --green-600: #8cb558;
+  --green-700: #6d8e48;
+  --green-800: #506538;
+  --green-900: #323d29;
+  --green-1050: #1b201d;
+
+  /* Light Blue */
+  --light-blue-50: #eeefeb;
+  --light-blue-100: #dfe9eb;
+  --light-blue-200: #cbe1eb;
+  --light-blue-300: #b7daea;
+  --light-blue-400: #a3d2ea;
+  --light-blue-default: #8fcaea;
+  --light-blue-600: #5e8ea8;
+  --light-blue-700: #4d7085;
+  --light-blue-800: #455e6d;
+  --light-blue-900: #2d3a43;
+  --light-blue-1050: #1a1f23;
+
+  /* Gray */
+  --gray-50: #f7f7f7;
+  --gray-100: #f2f2f2;
+  --gray-150: #f0f0f0;
+  --gray-175: #ebebea; /* midpoint of gray-150 and gray-200 */
+  --gray-200: #e5e5e3;
+  --gray-250: #dededb;
+  --gray-300: #d9d9d7;
+  --gray-400: #cccbc8;
+  --gray-default: #bfbdb9;
+  --gray-600: #9d9c99;
+  --gray-700: #868584;
+  --gray-800: #585959;
+  --gray-900: #363739;
+  --gray-1050: #1d1e21;
+
+  /* Antracite */
+  --antracite-50: #dedcd7;
+  --antracite-100: #cac8c4;
+  --antracite-200: #a09f9c;
+  --antracite-300: #777675;
+  --antracite-400: #4d4d4d;
+  --antracite-default: #242426;
+  --antracite-600: #212123;
+  --antracite-700: #1e1e21;
+  --antracite-800: #1a1c1e;
+  --antracite-900: #17191c;
+  --antracite-1050: #15171a;
+
+  /* Singleton */
+  --white: #f3f1eb;
+  --black: #141619;
+
+  /* ---------------------------------------------------------------------------
+     2. ALIAS — semantic roles, full scale
+     --------------------------------------------------------------------------- */
+
+  /* Primary → Yellow */
+  --primary-50: var(--yellow-50);
+  --primary-100: var(--yellow-100);
+  --primary-200: var(--yellow-200);
+  --primary-300: var(--yellow-300);
+  --primary-400: var(--yellow-400);
+  --primary-default: var(--yellow-default);
+  --primary-600: var(--yellow-600);
+  --primary-700: var(--yellow-700);
+  --primary-800: var(--yellow-800);
+  --primary-900: var(--yellow-900);
+  --primary-1050: var(--yellow-1050);
+  --primary-1200: var(--yellow-1200);
+
+  /* Secondary → Dark Blue */
+  --secondary-25: var(--dark-blue-25);
+  --secondary-50: var(--dark-blue-50);
+  --secondary-100: var(--dark-blue-100);
+  --secondary-200: var(--dark-blue-200);
+  --secondary-300: var(--dark-blue-300);
+  --secondary-400: var(--dark-blue-400);
+  --secondary-450: var(--dark-blue-450);
+  --secondary-default: var(--dark-blue-default);
+  --secondary-550: var(--dark-blue-550);
+  --secondary-600: var(--dark-blue-600);
+  --secondary-700: var(--dark-blue-700);
+  --secondary-800: var(--dark-blue-800);
+  --secondary-900: var(--dark-blue-900);
+  --secondary-1050: var(--dark-blue-1050);
+
+  /* Tertiary → Alternative Blue */
+  --tertiary-50: var(--alternative-blue-50);
+  --tertiary-100: var(--alternative-blue-100);
+  --tertiary-200: var(--alternative-blue-200);
+  --tertiary-300: var(--alternative-blue-300);
+  --tertiary-400: var(--alternative-blue-400);
+  --tertiary-default: var(--alternative-blue-default);
+  --tertiary-600: var(--alternative-blue-600);
+  --tertiary-700: var(--alternative-blue-700);
+  --tertiary-800: var(--alternative-blue-800);
+  --tertiary-900: var(--alternative-blue-900);
+  --tertiary-1050: var(--alternative-blue-1050);
+
+  /* Danger → Red */
+  --danger-50: var(--red-50);
+  --danger-100: var(--red-100);
+  --danger-200: var(--red-200);
+  --danger-300: var(--red-300);
+  --danger-400: var(--red-400);
+  --danger-default: var(--red-default);
+  --danger-600: var(--red-600);
+  --danger-700: var(--red-700);
+  --danger-800: var(--red-800);
+  --danger-900: var(--red-900);
+  --danger-1050: var(--red-1050);
+
+  /* Warning → Orange */
+  --warning-50: var(--orange-50);
+  --warning-100: var(--orange-100);
+  --warning-200: var(--orange-200);
+  --warning-300: var(--orange-300);
+  --warning-400: var(--orange-400);
+  --warning-default: var(--orange-default);
+  --warning-600: var(--orange-600);
+  --warning-700: var(--orange-700);
+  --warning-800: var(--orange-800);
+  --warning-900: var(--orange-900);
+  --warning-1050: var(--orange-1050);
+
+  /* Success → Green */
+  --success-50: var(--green-50);
+  --success-100: var(--green-100);
+  --success-200: var(--green-200);
+  --success-300: var(--green-300);
+  --success-400: var(--green-400);
+  --success-default: var(--green-default);
+  --success-600: var(--green-600);
+  --success-700: var(--green-700);
+  --success-800: var(--green-800);
+  --success-900: var(--green-900);
+  --success-1050: var(--green-1050);
+
+  /* Info → Light Blue */
+  --info-50: var(--light-blue-50);
+  --info-100: var(--light-blue-100);
+  --info-200: var(--light-blue-200);
+  --info-300: var(--light-blue-300);
+  --info-400: var(--light-blue-400);
+  --info-default: var(--light-blue-default);
+  --info-600: var(--light-blue-600);
+  --info-700: var(--light-blue-700);
+  --info-800: var(--light-blue-800);
+  --info-900: var(--light-blue-900);
+  --info-1050: var(--light-blue-1050);
+
+  /* Neutral → Gray */
+  --neutral-50: var(--gray-50);
+  --neutral-100: var(--gray-100);
+  --neutral-150: var(--gray-150);
+  --neutral-175: var(--gray-175);
+  --neutral-200: var(--gray-200);
+  --neutral-250: var(--gray-250);
+  --neutral-300: var(--gray-300);
+  --neutral-400: var(--gray-400);
+  --neutral-default: var(--gray-default);
+  --neutral-600: var(--gray-600);
+  --neutral-700: var(--gray-700);
+  --neutral-800: var(--gray-800);
+  --neutral-900: var(--gray-900);
+  --neutral-1050: var(--gray-1050);
+
+  /* ---------------------------------------------------------------------------
+     3. MAPPED — imported from the "Mapped tokens" frame in Figma
+     Every mapped token ALWAYS goes through a semantic alias.
+     --------------------------------------------------------------------------- */
+
+  /* Page */
+  --color-page: var(--secondary-25); /* Figma: Surface/Color-Page/Page → dark-blue-25 #eef0f2 */
+
+  /* Surface — default */
+  --surface-default-default: var(--neutral-50);
+  --surface-default-default-2: var(--neutral-150);
+  --surface-default-default-2-5: var(--neutral-175); /* between default-2 and default-3 */
+  --surface-default-default-3: var(--neutral-200);
+  --surface-default-hover: var(--neutral-250);
+  --surface-default-selected: var(--neutral-300);
+  --surface-default-selected-strong: var(--tertiary-default); /* solid accent (e.g. Toggle selected) */
+  --surface-default-colored: var(--secondary-50);
+  --surface-widget-icon: var(--secondary-25); /* subtle chip behind WidgetCard icon */
+  --surface-selected-colored: var(--primary-200); /* yellow-tinted selected item (e.g. SidebarItem) */
+  --surface-default-loading: var(--neutral-200);
+  --surface-default-disabled: var(--neutral-100);
+  --surface-default-warning: var(--warning-200);
+  --surface-default-error: var(--danger-200);
+  --surface-default-information: var(--info-200);
+  --surface-default-success: var(--success-200);
+
+  /* Surface — primary (subtle yellow, e.g. primary Badge) */
+  --surface-primary-surface: var(--primary-300); /* Figma: Surface/default/primary (#f9f9b9) */
+
+  /* Surface — action */
+  --surface-action-primary-default: var(--primary-default);
+  --surface-action-primary-hover: var(--primary-600);
+  --surface-action-primary-active: var(--primary-700);
+  --surface-action-primary-disabled: var(--neutral-200);
+
+  --surface-action-secondary-default: var(--primary-200); /* yellow tint (on-scale) */
+  --surface-action-secondary-hover: var(--primary-300);
+  --surface-action-secondary-pressed: var(--primary-400);
+  --surface-action-secondary-disabled: var(--neutral-100);
+
+  --surface-action-success-default: var(--success-default);
+  --surface-action-success-hover: var(--success-600);
+  --surface-action-success-active: var(--success-700);
+
+  --surface-action-warning-default: var(--warning-default);
+  --surface-action-warning-hover: var(--warning-600);
+  --surface-action-warning-active: var(--warning-700);
+
+  --surface-action-error-default: var(--danger-default);
+  --surface-action-error-hover: var(--danger-600);
+  --surface-action-error-active: var(--danger-700);
+
+  --surface-action-information-default: var(--info-default);
+  --surface-action-information-hover: var(--info-600);
+  --surface-action-information-active: var(--info-700);
+
+  /* Text — default */
+  --text-headings: var(--secondary-default);
+  --text-body: var(--secondary-default);
+  --text-information: var(--info-900);
+  --text-warning: var(--warning-900);
+  --text-success: var(--success-900);
+  --text-error: var(--danger-900);
+  --text-labels: var(--secondary-400); /* darker than -300 for AA contrast on small (12px) labels */
+  --text-description: var(--secondary-300);
+  --text-placeholder: var(--secondary-300); /* Figma: text/palceholder (typo) */
+  --text-link: var(--tertiary-300);
+  --text-link-hover: var(--tertiary-400);
+
+  /* Text — on-action (text on top of colored surfaces) */
+  --text-on-action-primary: var(--secondary-default);
+  --text-on-action-secondary: var(--neutral-800);
+  --text-on-action-disabled: var(--neutral-600);
+  --text-on-action-information: var(--info-1050);
+  --text-on-action-warning: var(--warning-1050);
+  --text-on-selected-strong: var(--white); /* text/icon on --surface-default-selected-strong */
+
+  /* Text — action */
+  --text-action-tertiary: var(--tertiary-default);
+  --text-action-tertiary-hover: var(--tertiary-700);
+  --text-action-disabled: var(--neutral-default);
+
+  /* Icon — default */
+  --icon-headings: var(--secondary-default);
+  --icon-body: var(--secondary-default);
+  --icon-information: var(--info-900);
+  --icon-warning: var(--warning-900);
+  --icon-error: var(--danger-900);
+  --icon-success: var(--success-900);
+  --icon-labels: var(--secondary-default);
+  --icon-description: var(--secondary-300);
+  --icon-subtle: var(--secondary-200);
+  --icon-inverse: var(--white);
+
+  /* Icon — on-action */
+  --icon-on-action-primary: var(--secondary-default);
+  --icon-on-action-secondary: var(--neutral-800);
+  --icon-on-action-disabled: var(--neutral-600);
+  --icon-on-action-information: var(--info-1050);
+  --icon-on-action-warning: var(--warning-1050);
+  --icon-on-action-success: var(--success-1050); /* Figma: icon/on-action/Success */
+  --icon-on-action-error: var(--danger-900); /* Figma: icon/on-action/Error on-action (typo) */
+
+  /* Icon — action */
+  --icon-action-tertiary: var(--tertiary-default);
+  --icon-action-tertiary-hover: var(--tertiary-700);
+  --icon-action-disabled: var(--neutral-700);
+
+  /* Border — default */
+  --border-default-default: var(--secondary-100);
+  --border-default-default-lighter: var(--secondary-50);
+  --border-default-hover: var(--secondary-200);
+  --border-default-selected: var(--tertiary-default);
+  --border-success: var(--success-400);
+  --border-warning: var(--warning-400);
+  --border-information: var(--info-400);
+  --border-error: var(--danger-400);
+
+  /* Border — surface / card */
+  --border-card: var(--neutral-200);
+
+  /* Border — action */
+  --border-action-primary: var(--primary-900);
+  --border-action-primary-hover: var(--primary-1050);
+  --border-action-secondary: var(--primary-400); /* darker than fill so the edge stays visible */
+  --border-action-secondary-hover: var(--primary-600);
+  --border-action-focused: var(--overlay);
+  --border-action-disabled: var(--neutral-300);
+
+  /* Utility — overlays & effects */
+  --overlay: color-mix(in srgb, var(--secondary-default) 4%, transparent);
+  --focus-ring: var(--tertiary-300);
+  --focus-ring-error: var(--danger-default);
+
+  /* ---------------------------------------------------------------------------
+     Spacing / radius / typography / motion (not from Figma colors)
+     --------------------------------------------------------------------------- */
+
+  /* Spacing scale (Figma "Scale" collection) */
+  --space-0: 0;
+  --space-25: 1px;
+  --space-50: 2px;
+  --space-100: 4px;
+  --space-200: 8px;
+  --space-300: 12px;
+  --space-400: 16px;
+  --space-500: 20px;
+  --space-600: 24px;
+  --space-700: 32px;
+  --space-800: 40px;
+  --space-900: 48px;
+  --space-1000: 56px;
+  --space-1100: 64px;
+  --space-1200: 72px;
+  --space-1300: 96px;
+  --space-1400: 124px;
+
+  --radius-2xs: 4px;
+  --radius-xs: 8px;
+  --radius-sm: 12px;
+  --radius-md: 16px;
+  --radius-lg: 20px;
+  --radius-xl: 24px;
+  --radius-full: 9999px;
+
+  /* Border widths */
+  --border-width-default: var(--space-25);
+
+  /* Shadows (Figma) */
+  --shadow-s: 0 1px 2px rgba(16, 24, 40, 0.04), 0 10px 30px rgba(16, 24, 40, 0.06);
+  --shadow-m: 0 0 20px 4px rgba(187, 200, 213, 0.2);
+  --shadow-l: 0 0 30px 6px rgba(187, 200, 213, 0.25);
+
+  /* Dark-theme shadow values (Figma: shadow-*-dark). Wired into the
+     light tokens inside the dark blocks below. */
+  --shadow-s-dark: 0 0 20px 1px rgba(20, 22, 25, 0.4);
+  --shadow-m-dark: 0 0 20px 4px rgba(20, 22, 25, 0.4);
+  --shadow-l-dark: 0 0 30px 6px rgba(20, 22, 25, 0.4);
+  --shadow-xl-dark:
+    0 4px 10px 0 rgba(38, 43, 51, 0.5),
+    0 8px 64px -12px rgba(20, 22, 25, 0.4);
+
+  /* Focus ring — Figma "Focus ring/4px": blur 4 + spread 4 */
+  --shadow-focus: 0 0 var(--space-100) var(--space-100) var(--focus-ring);
+  --shadow-focus-error: 0 0 var(--space-100) var(--space-100) var(--focus-ring-error);
+  --shadow-drop:
+    0 4px 10px 0 rgba(38, 43, 51, 0.1),
+    0 8px 64px -12px rgba(187, 200, 213, 0.2);
+
+  /* Font families */
+  --font-family-sans:
+    "Aeonik", "Inter", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI",
+    Roboto, sans-serif;
+  --font-family-mono:
+    "Geist Mono", ui-monospace, "SF Mono", Menlo, Consolas, monospace;
+
+  /* Font weights */
+  --font-weight-regular: 400;
+  --font-weight-medium: 500;
+
+  /* Type styles — 1:1 with Figma Typography collection.
+     Each style has font-size + line-height + letter-spacing.
+     Combine with --font-weight-regular | --font-weight-medium. */
+
+  /* Headings (Aeonik) */
+  --font-size-h1-xl: 72px;
+  --line-height-h1-xl: 80px;
+  --letter-spacing-h1-xl: 0;
+
+  --font-size-h1-s: 40px;
+  --line-height-h1-s: 48px;
+  --letter-spacing-h1-s: 0;
+
+  --font-size-h2: 34px;
+  --line-height-h2: 40px;
+  --letter-spacing-h2: 0;
+
+  --font-size-h3: 28px;
+  --line-height-h3: 32px;
+  --letter-spacing-h3: 0;
+
+  --font-size-h4: 24px;
+  --line-height-h4: 28px;
+  --letter-spacing-h4: 0;
+
+  --font-size-h5: 20px;
+  --line-height-h5: 24px;
+  --letter-spacing-h5: 0;
+
+  /* Body (Aeonik) */
+  --font-size-b1: 16px;
+  --line-height-b1: 20px;
+  --letter-spacing-b1: 0;
+
+  --font-size-b2: 14px;
+  --line-height-b2: 16px;
+  --letter-spacing-b2: 0;
+
+  --font-size-b3: 12px;
+  --line-height-b3: 12px;
+  --letter-spacing-b3: 0;
+
+  --font-size-b4: 10px;
+  --line-height-b4: 12px;
+  --letter-spacing-b4: 0;
+
+  /* Labels */
+  --font-size-label-l: 20px;
+  --line-height-label-l: 20px;
+  --letter-spacing-label-l: 0;
+
+  --font-size-label-m: 16px;
+  --line-height-label-m: 16px;
+  --letter-spacing-label-m: 0;
+
+  --font-size-label-s: 14px;
+  --line-height-label-s: 16px;
+  --letter-spacing-label-s: 0;
+
+  --font-size-label-xs: 12px;
+  --line-height-label-xs: 12px;
+  --letter-spacing-label-xs: 0;
+
+  --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.06);
+  --shadow-md: 0 4px 12px rgba(0, 0, 0, 0.08);
+  --shadow-lg:
+    0 4px 6px -2px rgba(10, 13, 18, 0.03),
+    0 12px 16px -4px rgba(10, 13, 18, 0.08);
+
+  --duration-fast: 120ms;
+  --duration-base: 200ms;
+  --easing-standard: cubic-bezier(0.2, 0, 0, 1);
+}
+
+/* =============================================================================
+   DARK MODE — overrides on the mapped layer only.
+   Brands and aliases stay the same; only the last hop changes.
+
+   Defined ONCE in the `dark-theme` mixin and applied through two triggers:
+   an explicit `data-theme="dark"` and the OS `prefers-color-scheme: dark`
+   (unless the user has forced light). Edit dark values here, in one place.
+   ============================================================================= */
+
+@mixin dark-theme {
+  /* Page */
+  --color-page: var(--secondary-1050);
+
+  /* Surface — default */
+  --surface-default-default: var(--secondary-700);
+  --surface-default-default-2: var(--secondary-600);
+  --surface-default-default-2-5: var(--secondary-550); /* between default-2 and default-3 */
+  --surface-default-default-3: var(--secondary-default);
+  --surface-default-hover: var(--secondary-450);
+  --surface-default-selected: var(--secondary-default);
+  --surface-default-colored: var(--tertiary-700);
+  --surface-widget-icon: var(--tertiary-800); /* subtle chip behind WidgetCard icon */
+  --surface-selected-colored: color-mix(in srgb, var(--primary-default) 5%, var(--surface-default-default-3)); /* subtle yellow-tinted selected item (accent as a wash, not a solid dark-yellow) */
+  --surface-default-loading: var(--secondary-default);
+  --surface-default-disabled: var(--neutral-800);
+  --surface-default-warning: var(--warning-900);
+  --surface-default-error: var(--danger-900);
+  --surface-default-information: var(--info-900);
+  --surface-default-success: var(--success-900);
+
+  /* Surface — primary (dark): blue so the yellow primary-text stays legible */
+  --surface-primary-surface: var(--secondary-300);
+
+  /* Surface — action */
+  --surface-action-primary-default: var(--primary-300);
+  --surface-action-primary-hover: var(--primary-200);
+  --surface-action-primary-active: var(--primary-100);
+  --surface-action-primary-disabled: var(--neutral-900);
+
+  --surface-action-secondary-default: var(--tertiary-800); /* darkest → white text ~12:1 */
+  --surface-action-secondary-hover: var(--tertiary-700);
+  --surface-action-secondary-pressed: var(--tertiary-600);
+  --surface-action-secondary-disabled: var(--neutral-1050);
+
+  --surface-action-success-default: #5c7742; /* off-scale — verify */
+  --surface-action-success-hover: #6f9148; /* off-scale — verify */
+  --surface-action-success-active: var(--success-default);
+
+  --surface-action-warning-default: var(--warning-700);
+  --surface-action-warning-hover: var(--warning-600);
+  --surface-action-warning-active: var(--warning-default);
+
+  --surface-action-error-default: var(--danger-700);
+  --surface-action-error-hover: var(--danger-600);
+  --surface-action-error-active: var(--danger-default);
+
+  --surface-action-information-default: var(--info-700);
+  --surface-action-information-hover: var(--info-600);
+  --surface-action-information-active: var(--info-default);
+
+  /* Text — default */
+  --text-headings: var(--white);
+  --text-body: var(--white);
+  --text-information: var(--info-200);
+  --text-warning: var(--warning-200);
+  --text-success: var(--success-200);
+  --text-error: var(--danger-200);
+  --text-labels: var(--secondary-100);
+  --text-description: var(--secondary-200);
+  --text-placeholder: var(--secondary-400);
+  --text-link: var(--tertiary-100);
+  --text-link-hover: var(--tertiary-50);
+
+  /* Text — on-action */
+  --text-on-action-primary: var(--tertiary-default);
+  --text-on-action-secondary: var(--white);
+  --text-on-action-disabled: var(--neutral-700);
+  --text-on-action-information: var(--info-default);
+  --text-on-action-warning: var(--warning-default);
+
+  /* Text — action */
+  --text-action-tertiary: var(--primary-300);
+  --text-action-tertiary-hover: var(--primary-200);
+  --text-action-disabled: var(--neutral-600);
+
+  /* Icon — default */
+  --icon-headings: var(--white);
+  --icon-body: var(--white);
+  --icon-information: var(--info-200);
+  --icon-warning: var(--warning-200);
+  --icon-error: var(--danger-200);
+  --icon-success: var(--success-200);
+  --icon-labels: var(--secondary-200);
+  --icon-description: var(--secondary-200);
+  --icon-subtle: var(--secondary-300);
+  --icon-inverse: var(--secondary-default);
+
+  /* Icon — on-action */
+  --icon-on-action-primary: var(--tertiary-default);
+  --icon-on-action-secondary: var(--white);
+  --icon-on-action-information: var(--info-default);
+  --icon-on-action-warning: var(--warning-default);
+  --icon-on-action-success: var(--success-default);
+  --icon-on-action-error: var(--danger-default);
+
+  /* Icon — action */
+  --icon-action-tertiary: var(--primary-300);
+  --icon-action-tertiary-hover: var(--primary-200);
+  --icon-action-disabled: var(--neutral-700);
+
+  /* Border — default */
+  --border-default-default: var(--secondary-400);
+  --border-default-default-lighter: var(--secondary-default);
+  --border-default-hover: var(--secondary-300);
+  --border-default-selected: var(--primary-default);
+  --border-success: #5c7742; /* off-scale — verify */
+  --border-warning: var(--warning-700);
+  --border-information: var(--info-700);
+  --border-error: var(--danger-700);
+
+  /* Border — surface / card */
+  --border-card: var(--secondary-600);
+
+  /* Border — action */
+  --border-action-primary: var(--primary-700);
+  --border-action-primary-hover: var(--primary-600);
+  --border-action-secondary: var(--primary-800);
+  --border-action-secondary-hover: var(--primary-700);
+  --border-action-focused: var(--overlay);
+  --border-action-disabled: var(--neutral-900);
+
+  /* Utility — overlays & effects (dark override) */
+  --overlay: color-mix(in srgb, var(--white) 6%, transparent);
+
+  /* Shadows — dark variants (Figma: shadow-*-dark) */
+  --shadow-s: var(--shadow-s-dark);
+  --shadow-m: var(--shadow-m-dark);
+  --shadow-l: var(--shadow-l-dark);
+  --shadow-drop: var(--shadow-xl-dark);
+}
+
+:root[data-theme="dark"],
+[data-theme="dark"] {
+  @include dark-theme;
+}
+
+/* Auto-detect: applies the same dark overrides when the OS prefers dark,
+   unless the user has explicitly forced light via data-theme="light". */
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]),
+  [data-theme]:not([data-theme="light"]) {
+    @include dark-theme;
+  }
+}

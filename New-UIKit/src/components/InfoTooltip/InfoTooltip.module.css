@@ -1,0 +1,29 @@
+.wrap {
+  display: inline-flex;
+}
+
+.trigger {
+  display: inline-flex;
+  align-items: center;
+  margin: 0;
+  padding: 0;
+  border: 0;
+  background: transparent;
+  color: inherit;
+  cursor: pointer;
+}
+
+.trigger:focus-visible {
+  outline: none;
+  border-radius: var(--radius-2xs);
+  box-shadow: var(--shadow-focus);
+}
+
+/* Rendered in a portal on <body> with fixed positioning (left/top set inline),
+   so it escapes any ancestor overflow clipping. Centred under the icon. */
+.tip {
+  position: fixed;
+  transform: translateX(-50%);
+  z-index: 1000;
+  pointer-events: none;
+}

@@ -1,0 +1,69 @@
+.card {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: var(--space-400);
+  box-sizing: border-box;
+  width: 100%;
+  min-width: 0;
+  padding: var(--space-300);
+  background: var(--surface-default-default);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-s);
+}
+
+.header {
+  display: flex;
+  align-items: center;
+  gap: var(--space-200);
+  width: 100%;
+}
+
+.chip {
+  display: inline-flex;
+  align-items: center;
+  flex-shrink: 0;
+  padding: var(--space-200);
+  border-radius: var(--radius-md);
+  background: var(--surface-widget-icon);
+  color: var(--icon-headings);
+}
+
+.titleBlock {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: var(--space-100);
+  min-width: 0;
+}
+
+.title {
+  margin: 0;
+  font-family: var(--font-family-sans);
+  font-weight: var(--font-weight-medium);
+  font-size: var(--font-size-b1);
+  line-height: var(--line-height-b1);
+  letter-spacing: var(--letter-spacing-b1);
+  text-transform: capitalize;
+  color: var(--text-headings);
+}
+
+.description {
+  margin: 0;
+  font-family: var(--font-family-sans);
+  font-weight: var(--font-weight-regular);
+  font-size: var(--font-size-b3);
+  line-height: var(--line-height-b3);
+  letter-spacing: var(--letter-spacing-b3);
+  color: var(--text-description);
+}
+
+.contents {
+  /* `auto` basis so the contents contribute their real height to the card's
+     intrinsic size (the card hugs its content); `grow: 1` still lets it fill
+     the extra space when the grid stretches this card to match a taller
+     sibling in the same row. */
+  flex: 1 1 auto;
+  min-height: 0;
+  width: 100%;
+}

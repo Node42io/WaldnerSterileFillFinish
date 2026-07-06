@@ -1,0 +1,46 @@
+.number {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* ---------- Type: shape & padding ---------- */
+.type-colored-full {
+  padding: var(--space-100) var(--space-300);
+  border-radius: var(--radius-full);
+}
+
+.type-colored-angle {
+  padding: var(--space-100) var(--space-300);
+  border-radius: var(--radius-lg);
+}
+
+.type-badge {
+  flex-direction: column;
+  gap: var(--space-50);
+  /* Figma: pt 8 / px 8 / pb 4 */
+  padding: var(--space-200) var(--space-200) var(--space-100);
+  border-radius: var(--radius-lg);
+}
+
+/* ---------- Color: background tint ---------- */
+.color-blue {
+  background: var(--surface-selected-colored);
+}
+
+.color-yellow {
+  background: var(--surface-primary-surface);
+}
+
+.color-neutral {
+  background: var(--surface-default-default-3);
+}
+
+.color-none {
+  background: transparent;
+}
+
+/* colored-full + none: bare value, no padding (Figma). */
+.type-colored-full.color-none {
+  padding: 0;
+}

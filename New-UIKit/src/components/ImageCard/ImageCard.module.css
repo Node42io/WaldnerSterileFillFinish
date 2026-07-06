@@ -1,0 +1,57 @@
+.card {
+  position: relative;
+  box-sizing: border-box;
+  /* Fills its container; the parent (grid/flex cell) controls the width. */
+  width: 100%;
+  aspect-ratio: 1 / 1;
+  overflow: hidden;
+  border-radius: var(--radius-sm);
+  /* Fallback fill shown behind/around the image. */
+  background: var(--secondary-300);
+}
+
+.image {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+/* Badge pinned to the top-left corner; rounded on the tl + br corners,
+   sitting on a translucent overlay with a background blur. */
+.badge {
+  position: absolute;
+  top: 0;
+  left: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 0;
+  padding: var(--space-100) var(--space-200);
+  background: var(--overlay);
+  /* No blur token exists in the kit yet — Figma "Background blur/lg". */
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border-top-left-radius: var(--radius-sm);
+  border-bottom-right-radius: var(--radius-sm);
+  color: var(--text-headings);
+}
+
+.role {
+  margin: 0;
+  font-family: var(--font-family-sans);
+  font-weight: var(--font-weight-regular);
+  font-size: var(--font-size-label-xs);
+  line-height: var(--line-height-label-xs);
+  letter-spacing: var(--letter-spacing-label-xs);
+  text-transform: capitalize;
+}
+
+.name {
+  margin: 0;
+  font-family: var(--font-family-sans);
+  font-weight: var(--font-weight-regular);
+  font-size: var(--font-size-b4);
+  line-height: var(--line-height-b4);
+  letter-spacing: var(--letter-spacing-b4);
+}

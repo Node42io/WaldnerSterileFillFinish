@@ -1,0 +1,36 @@
+/* Keep the digits aligned when several badges stack in a report column. */
+.value {
+  font-variant-numeric: tabular-nums;
+}
+
+/* ---------- Title variant: "CONF. LEVEL ⓘ" header above the badge ---------- */
+.root {
+  display: inline-flex;
+  flex-direction: column;
+  /* Stretch so the badge matches the title row's width (Figma). */
+  align-items: stretch;
+  gap: var(--space-50);
+}
+
+.title {
+  display: flex;
+  align-items: center;
+  gap: var(--space-50);
+}
+
+/* Aeonik / label-XS, capitalize (Figma: text/labels). */
+.title-text {
+  font-family: var(--font-family-sans);
+  font-weight: var(--font-weight-regular);
+  font-size: var(--font-size-label-xs);
+  line-height: var(--line-height-label-xs);
+  letter-spacing: var(--letter-spacing-label-xs);
+  text-transform: capitalize;
+  white-space: nowrap;
+  color: var(--text-labels);
+}
+
+.info-icon {
+  flex-shrink: 0;
+  color: var(--icon-action-tertiary);
+}

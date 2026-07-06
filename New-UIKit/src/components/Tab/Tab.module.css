@@ -1,0 +1,171 @@
+/* Base */
+.tab {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-200);
+  background: transparent;
+  color: var(--text-body);
+  border-radius: var(--radius-xs);
+  border: none;
+  font-family: var(--font-family-sans);
+  font-weight: var(--font-weight-regular);
+  cursor: pointer;
+  user-select: none;
+  transition:
+    background-color var(--duration-fast) var(--easing-standard),
+    color var(--duration-fast) var(--easing-standard);
+}
+
+.tab:focus-visible {
+  outline: 2px solid var(--border-action-focused);
+  outline-offset: 2px;
+}
+
+/* Indicator line — drawn as ::after so it stays straight beyond the
+   rounded corners (equivalent of Figma's frame with Clip content = off). */
+.kind-horizontal::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  height: 1px;
+  background: var(--border-default-default);
+  transition: background-color var(--duration-fast) var(--easing-standard);
+}
+
+.kind-vertical::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  right: 0;
+  width: 1px;
+  background: var(--border-default-default);
+  transition: background-color var(--duration-fast) var(--easing-standard);
+}
+
+/* Sizes — horizontal */
+.kind-horizontal.size-sm {
+  padding: var(--space-100) var(--space-300);
+  font-size: var(--font-size-b2);
+  line-height: var(--line-height-b2);
+  letter-spacing: var(--letter-spacing-b2);
+}
+.kind-horizontal.size-md {
+  padding: var(--space-200) var(--space-400);
+  font-size: var(--font-size-b2);
+  line-height: var(--line-height-b2);
+  letter-spacing: var(--letter-spacing-b2);
+}
+.kind-horizontal.size-lg {
+  padding: var(--space-300) var(--space-400);
+  font-size: var(--font-size-b1);
+  line-height: var(--line-height-b1);
+  letter-spacing: var(--letter-spacing-b1);
+}
+
+/* Sizes — vertical */
+.kind-vertical.size-sm {
+  padding: var(--space-300) var(--space-300);
+  font-size: var(--font-size-b2);
+  line-height: var(--line-height-b2);
+  letter-spacing: var(--letter-spacing-b2);
+}
+.kind-vertical.size-md {
+  padding: var(--space-400) var(--space-400);
+  font-size: var(--font-size-b1);
+  line-height: var(--line-height-b1);
+  letter-spacing: var(--letter-spacing-b1);
+}
+.kind-vertical.size-lg {
+  padding: var(--space-500) var(--space-400);
+  font-size: var(--font-size-h5);
+  line-height: var(--line-height-h5);
+  letter-spacing: var(--letter-spacing-h5);
+}
+
+/* States */
+.tab:hover:not(.disabled):not(.selected) {
+  background: var(--surface-default-hover);
+}
+.tab:hover:not(.disabled):not(.selected)::after {
+  background: var(--border-default-hover);
+}
+
+.selected {
+  color: var(--text-action-tertiary);
+  font-weight: var(--font-weight-medium);
+}
+.selected .prefix,
+.selected .close {
+  color: var(--icon-action-tertiary);
+}
+.selected::after {
+  background: var(--border-default-selected);
+}
+
+.disabled {
+  color: var(--text-action-disabled);
+  cursor: not-allowed;
+}
+.disabled .prefix,
+.disabled .close {
+  color: var(--icon-action-disabled);
+}
+.disabled::after {
+  background: var(--border-action-disabled);
+}
+
+/* Label */
+.label {
+  white-space: nowrap;
+  display: inline-block;
+}
+.label.truncated {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  min-width: 0;
+}
+
+/* Prefix icon */
+.prefix {
+  display: inline-flex;
+  align-items: center;
+  color: var(--icon-body);
+}
+
+/* Badge (notification dot) */
+.badge {
+  display: inline-block;
+  width: var(--space-200);
+  height: var(--space-200);
+  border-radius: var(--radius-full);
+  background: var(--surface-action-error-default);
+  flex-shrink: 0;
+}
+
+/* Close button */
+.close {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0;
+  background: transparent;
+  border: none;
+  color: var(--icon-body);
+  cursor: pointer;
+  border-radius: var(--radius-2xs);
+  transition: background-color var(--duration-fast) var(--easing-standard);
+}
+.close:hover:not(:disabled) {
+  background: var(--surface-default-hover);
+}
+.close:focus-visible {
+  outline: 2px solid var(--border-action-focused);
+  outline-offset: 1px;
+}
+.close:disabled {
+  cursor: not-allowed;
+}

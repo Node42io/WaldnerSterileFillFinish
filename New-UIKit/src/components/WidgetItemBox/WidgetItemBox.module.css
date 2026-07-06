@@ -1,0 +1,59 @@
+.box {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-200);
+  width: 100%;
+  padding: var(--space-300);
+  border-radius: var(--radius-md);
+  transition: background-color var(--duration-fast) var(--easing-standard);
+}
+
+/* ---------- Background surface ----------
+   `--widget-item-box-surface` lets a parent (e.g. LinkCard on hover) override
+   the surface; absent that, each variant falls back to its own token. */
+.surface-default-2 {
+  background: var(--widget-item-box-surface, var(--surface-default-default-2));
+}
+
+.surface-default {
+  background: var(--widget-item-box-surface, var(--surface-default-default));
+}
+
+/* ---------- Title (Aeonik / label-XS, capitalize) ---------- */
+.title {
+  margin: 0;
+  font-family: var(--font-family-sans);
+  font-weight: var(--font-weight-regular);
+  font-size: var(--font-size-label-xs);
+  line-height: var(--line-height-label-xs);
+  letter-spacing: var(--letter-spacing-label-xs);
+  text-transform: capitalize;
+  color: var(--text-labels);
+}
+
+/* ---------- Body slot ---------- */
+/* `flex-basis: auto` so the slot starts at its content height (the box hugs
+   its contents); `flex-grow: 1` still lets it fill the remaining height when
+   the box is stretched taller, keeping the footer pinned to the bottom. */
+.slot {
+  display: flex;
+  flex: 1 1 auto;
+  min-height: 0;
+  width: 100%;
+  gap: var(--space-300);
+}
+
+.variant-vertical {
+  flex-direction: column;
+}
+
+.variant-horizontal {
+  flex-direction: row;
+}
+
+/* ---------- Footer (action pinned bottom-right) ---------- */
+.footer {
+  display: flex;
+  justify-content: flex-end;
+  width: 100%;
+}

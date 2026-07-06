@@ -1,0 +1,131 @@
+.field {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  /* Label ↔ input field gap: 4px. */
+  gap: var(--space-100);
+  width: 100%;
+}
+
+/* ---------- Label (Aeonik / label-M, capitalize) ---------- */
+.label {
+  font-family: var(--font-family-sans);
+  font-weight: var(--font-weight-regular);
+  font-size: var(--font-size-label-m);
+  line-height: var(--line-height-label-m);
+  letter-spacing: var(--letter-spacing-label-m);
+  text-transform: capitalize;
+  color: var(--text-labels);
+}
+
+/* ---------- Input box ---------- */
+.box {
+  display: flex;
+  align-items: center;
+  gap: var(--space-200);
+  width: 100%;
+  height: var(--space-800); /* 40px */
+  /* Figma px 14px → snapped to the nearest scale token; height covers py. */
+  padding-inline: var(--space-400);
+  border: var(--border-width-default) solid var(--border-default-default-lighter);
+  border-radius: var(--radius-md);
+  background: var(--surface-default-default);
+  overflow: hidden;
+  transition: border-color var(--duration-fast) var(--easing-standard);
+}
+
+/* Active/focus: tertiary 2px border (no focus ring). */
+.box:focus-within {
+  border-color: var(--tertiary-default);
+  border-width: var(--space-50);
+}
+
+.box-error,
+.box-error:focus-within {
+  border-color: var(--border-error);
+}
+
+.box-error:focus-within {
+  box-shadow: var(--shadow-focus-error);
+}
+
+.box-error .trailing {
+  color: var(--icon-error);
+}
+
+.box-disabled {
+  background: var(--surface-action-primary-disabled);
+  border-color: var(--border-action-disabled);
+  cursor: not-allowed;
+}
+
+.box-disabled .leading,
+.box-disabled .trailing {
+  /* Figma icon/action/Disabled = neutral-default; only token with this value. */
+  color: var(--text-action-disabled);
+}
+
+/* ---------- Slots ---------- */
+.leading,
+.trailing {
+  display: inline-flex;
+  align-items: center;
+  flex-shrink: 0;
+}
+
+.leading {
+  color: var(--icon-body);
+}
+
+.trailing {
+  color: var(--icon-description);
+}
+
+/* ---------- The input (Aeonik / B2) ---------- */
+.input {
+  flex: 1 1 0;
+  min-width: 0;
+  margin: 0;
+  padding: 0;
+  border: 0;
+  background: transparent;
+  font-family: var(--font-family-sans);
+  font-weight: var(--font-weight-regular);
+  font-size: var(--font-size-b1);
+  line-height: var(--line-height-b1);
+  letter-spacing: var(--letter-spacing-b1);
+  color: var(--text-body);
+}
+
+.input::placeholder {
+  color: var(--text-placeholder);
+}
+
+.input:focus {
+  outline: none;
+}
+
+.input:disabled {
+  color: var(--text-on-action-disabled);
+  cursor: not-allowed;
+}
+
+/* ---------- Hint / error message (Aeonik / B3) ---------- */
+.hint,
+.error {
+  margin: 0;
+  width: 100%;
+  font-family: var(--font-family-sans);
+  font-weight: var(--font-weight-regular);
+  font-size: var(--font-size-b3);
+  line-height: var(--line-height-b3);
+  letter-spacing: var(--letter-spacing-b3);
+}
+
+.hint {
+  color: var(--text-description);
+}
+
+.error {
+  color: var(--text-error);
+}

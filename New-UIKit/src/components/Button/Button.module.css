@@ -1,0 +1,222 @@
+/* Base */
+.button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid transparent;
+  font-family: var(--font-family-sans);
+  font-weight: var(--font-weight-medium);
+  cursor: pointer;
+  white-space: nowrap;
+  min-width: 0;
+  transition:
+    background-color var(--duration-fast) var(--easing-standard),
+    color var(--duration-fast) var(--easing-standard),
+    border-color var(--duration-fast) var(--easing-standard),
+    box-shadow var(--duration-fast) var(--easing-standard);
+}
+
+.button:focus-visible {
+  border-color: var(--border-action-focused);
+  box-shadow: var(--shadow-focus);
+  outline: none;
+}
+
+.button:disabled {
+  cursor: not-allowed;
+}
+
+.fullWidth {
+  width: 100%;
+}
+
+.label {
+  display: inline-block;
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.icon {
+  display: inline-flex;
+  align-items: center;
+}
+
+/* ---------- Sizes ---------- */
+.size-xs {
+  height: 24px;
+  padding: 0 var(--space-200);
+  gap: var(--space-100);
+  border-radius: var(--radius-xs);
+  font-size: var(--font-size-b3);
+  line-height: var(--line-height-b3);
+  letter-spacing: var(--letter-spacing-b3);
+}
+.size-sm {
+  height: 32px;
+  padding: 0 var(--space-300);
+  gap: var(--space-100);
+  border-radius: var(--radius-sm);
+  font-size: var(--font-size-b2);
+  line-height: var(--line-height-b2);
+  letter-spacing: var(--letter-spacing-b2);
+}
+.size-md {
+  height: 36px;
+  padding: 0 var(--space-400);
+  gap: var(--space-200);
+  border-radius: var(--radius-md);
+  font-size: var(--font-size-b1);
+  line-height: var(--line-height-b1);
+  letter-spacing: var(--letter-spacing-b1);
+}
+.size-lg {
+  height: 40px;
+  padding: 0 var(--space-500);
+  gap: var(--space-200);
+  border-radius: var(--radius-md);
+  font-size: var(--font-size-h5);
+  line-height: var(--line-height-h5);
+  letter-spacing: var(--letter-spacing-h5);
+}
+.size-xl {
+  height: 48px;
+  padding: 0 var(--space-600);
+  gap: var(--space-300);
+  border-radius: var(--radius-lg);
+  font-size: var(--font-size-h4);
+  line-height: var(--line-height-h4);
+  letter-spacing: var(--letter-spacing-h4);
+}
+
+/* Icon-only — square aspect, no horizontal padding */
+.iconOnly { padding: 0; }
+.iconOnly.size-xs { width: 24px; }
+.iconOnly.size-sm { width: 32px; }
+.iconOnly.size-md { width: 36px; }
+.iconOnly.size-lg { width: 40px; }
+.iconOnly.size-xl { width: 48px; }
+
+/* ---------- Variants ---------- */
+
+/* Primary — filled yellow */
+.variant-primary {
+  background: var(--surface-action-primary-default);
+  color: var(--text-on-action-primary);
+}
+.variant-primary .icon {
+  color: var(--icon-on-action-primary);
+}
+.variant-primary:hover:not(:disabled) {
+  background: var(--surface-action-primary-hover);
+}
+.variant-primary:active:not(:disabled) {
+  background: var(--surface-action-primary-active);
+}
+.variant-primary:disabled {
+  background: var(--surface-action-primary-disabled);
+  color: var(--text-on-action-disabled);
+}
+.variant-primary:disabled .icon {
+  color: var(--icon-on-action-disabled);
+}
+
+/* Secondary — filled blue */
+.variant-secondary {
+  background: var(--surface-action-secondary-default);
+  color: var(--text-on-action-secondary);
+}
+.variant-secondary .icon {
+  color: var(--icon-on-action-secondary);
+}
+.variant-secondary:hover:not(:disabled) {
+  background: var(--surface-action-secondary-hover);
+}
+.variant-secondary:active:not(:disabled) {
+  background: var(--surface-action-secondary-pressed);
+}
+.variant-secondary:disabled {
+  background: var(--surface-action-secondary-disabled);
+  color: var(--text-on-action-disabled);
+}
+.variant-secondary:disabled .icon {
+  color: var(--icon-on-action-disabled);
+}
+
+/* Secondary neutral — filled neutral surface, on-secondary text/icon */
+.variant-secondary-neutral {
+  background: var(--surface-default-default-2);
+  color: var(--text-on-action-secondary);
+}
+.variant-secondary-neutral .icon {
+  color: var(--icon-on-action-secondary);
+}
+.variant-secondary-neutral:hover:not(:disabled) {
+  background: var(--surface-default-default-3);
+}
+.variant-secondary-neutral:active:not(:disabled) {
+  background: var(--surface-default-hover);
+}
+.variant-secondary-neutral:disabled {
+  background: var(--surface-action-secondary-disabled);
+  color: var(--text-on-action-disabled);
+}
+.variant-secondary-neutral:disabled .icon {
+  color: var(--icon-on-action-disabled);
+}
+
+/* Secondary outline — transparent surface, border + on-secondary text/icon */
+.variant-secondary-outline {
+  background: transparent;
+  color: var(--text-on-action-secondary);
+  border-color: var(--border-default-default);
+}
+.variant-secondary-outline .icon {
+  color: var(--icon-on-action-secondary);
+}
+.variant-secondary-outline:hover:not(:disabled) {
+  background: var(--overlay);
+  color: var(--text-on-action-secondary);
+  border-color: var(--border-default-default);
+}
+.variant-secondary-outline:hover:not(:disabled) .icon {
+  color: var(--icon-on-action-secondary);
+}
+.variant-secondary-outline:active:not(:disabled) {
+  background: transparent;
+  color: var(--text-body);
+}
+.variant-secondary-outline:active:not(:disabled) .icon {
+  color: var(--icon-body);
+}
+.variant-secondary-outline:disabled {
+  color: var(--text-action-disabled);
+  border-color: var(--border-action-disabled);
+}
+.variant-secondary-outline:disabled .icon {
+  color: var(--icon-action-disabled);
+}
+
+/* Tertiary — no surface, no border, text + icon only.
+   No horizontal padding so the label sits flush with surrounding content. */
+.variant-tertiary {
+  background: transparent;
+  color: var(--text-action-tertiary);
+  border-color: transparent;
+  padding-inline: 0;
+}
+.variant-tertiary .icon {
+  color: var(--icon-action-tertiary);
+}
+.variant-tertiary:hover:not(:disabled) {
+  color: var(--text-action-tertiary-hover);
+}
+.variant-tertiary:hover:not(:disabled) .icon {
+  color: var(--icon-action-tertiary-hover);
+}
+.variant-tertiary:disabled {
+  color: var(--text-action-disabled);
+}
+.variant-tertiary:disabled .icon {
+  color: var(--icon-action-disabled);
+}

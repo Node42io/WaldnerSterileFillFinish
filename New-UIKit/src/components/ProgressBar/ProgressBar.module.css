@@ -1,0 +1,80 @@
+.progress {
+  display: inline-flex;
+  gap: var(--space-50);
+}
+
+/* Label position (Figma "number": dx/sx/up/down). */
+.label-right {
+  flex-direction: row;
+  align-items: center;
+}
+
+.label-left {
+  flex-direction: row-reverse;
+  align-items: center;
+}
+
+.label-bottom {
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: center;
+}
+
+.label-top {
+  flex-direction: column-reverse;
+  align-items: flex-start;
+  justify-content: center;
+}
+
+/* ---------- Track ---------- */
+.track {
+  position: relative;
+  flex-shrink: 0;
+  width: 92px;
+  height: 4px;
+  border-radius: var(--radius-full);
+  background: var(--surface-default-selected);
+  overflow: hidden;
+}
+
+.fullWidth {
+  width: 100%;
+}
+
+/* Track grows to fill the space left of/after the label instead of taking the
+   full row width (which would push the label outside the container). */
+.fullWidth .track {
+  flex: 1 1 0;
+  min-width: 0;
+}
+
+/* ---------- Fill ---------- */
+.fill {
+  height: 100%;
+  border-radius: var(--radius-full);
+  transition: width var(--duration-fast) var(--easing-standard);
+}
+
+.level-low {
+  background: var(--surface-action-error-default);
+}
+
+.level-medium {
+  background: var(--surface-action-warning-default);
+}
+
+.level-high {
+  background: var(--surface-action-success-default);
+}
+
+/* ---------- Label (Aeonik, capitalize) ---------- */
+.label {
+  font-family: var(--font-family-sans);
+  font-weight: var(--font-weight-regular);
+  font-size: var(--font-size-b4);
+  line-height: var(--line-height-b4);
+  letter-spacing: var(--letter-spacing-b4);
+  text-transform: capitalize;
+  color: var(--text-labels);
+  white-space: nowrap;
+}

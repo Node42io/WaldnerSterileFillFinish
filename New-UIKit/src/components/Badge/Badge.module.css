@@ -1,0 +1,186 @@
+.badge {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-50);
+  border-radius: var(--radius-md);
+  background: var(--surface-default-default-2);
+  color: var(--text-body);
+  font-family: var(--font-family-sans);
+  font-weight: var(--font-weight-regular);
+  white-space: nowrap;
+  vertical-align: middle;
+}
+
+/* ---------- Variants (surface colour) ---------- */
+.variant-neutral {
+  background: var(--surface-default-default-2);
+}
+
+.variant-primary {
+  background: var(--surface-primary-surface);
+  color: var(--text-action-tertiary);
+}
+
+.variant-warning {
+  background: var(--surface-default-warning);
+  color: var(--text-warning);
+}
+
+.variant-error {
+  background: var(--surface-default-error);
+  color: var(--text-error);
+}
+
+.variant-success {
+  background: var(--surface-default-success);
+  color: var(--text-success);
+}
+
+.variant-information {
+  background: var(--surface-default-information);
+  color: var(--text-information);
+}
+
+.variant-color {
+  background: var(--surface-default-colored);
+}
+
+/* ---------- Label ---------- */
+.label {
+  text-align: center;
+  text-transform: capitalize;
+}
+
+/* ---------- Leading dot ---------- */
+.dot {
+  flex-shrink: 0;
+  border-radius: var(--radius-full);
+  background: var(--icon-body);
+}
+
+/* Status variants: dot + icon follow the variant's text colour */
+.variant-warning .dot,
+.variant-error .dot,
+.variant-success .dot,
+.variant-information .dot {
+  background: currentColor;
+}
+
+.variant-warning .icon,
+.variant-error .icon,
+.variant-success .icon,
+.variant-information .icon,
+.variant-warning .close,
+.variant-error .close,
+.variant-success .close,
+.variant-information .close {
+  color: inherit;
+}
+
+/* ---------- Leading icon ---------- */
+.icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  color: var(--icon-body);
+}
+
+.icon svg {
+  width: 100%;
+  height: 100%;
+}
+
+/* ---------- Trailing dismiss button ---------- */
+.close {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  margin: 0;
+  padding: 0;
+  border: 0;
+  border-radius: var(--radius-full);
+  background: transparent;
+  color: var(--icon-body);
+  cursor: pointer;
+}
+
+.close:focus-visible {
+  outline: none;
+  box-shadow: var(--shadow-focus);
+}
+
+/* ---------- Sizes ---------- */
+.size-xs {
+  gap: var(--space-50);
+  padding: var(--space-50) var(--space-200);
+  font-size: var(--font-size-label-xs);
+  line-height: var(--line-height-label-xs);
+  letter-spacing: var(--letter-spacing-label-xs);
+}
+
+.size-xs .icon {
+  width: 12px;
+  height: 12px;
+}
+
+.size-xs .dot {
+  width: 4px;
+  height: 4px;
+}
+
+.size-sm {
+  gap: var(--space-50);
+  padding: var(--space-50) var(--space-200);
+  font-size: var(--font-size-label-s);
+  line-height: var(--line-height-label-s);
+  letter-spacing: var(--letter-spacing-label-s);
+}
+
+.size-sm .icon {
+  width: 16px;
+  height: 16px;
+}
+
+.size-sm .dot {
+  width: 6px;
+  height: 6px;
+}
+
+.size-md {
+  gap: var(--space-100);
+  padding: var(--space-100) var(--space-200);
+  font-size: var(--font-size-label-m);
+  line-height: var(--line-height-label-m);
+  letter-spacing: var(--letter-spacing-label-m);
+}
+
+.size-md .icon {
+  width: 16px;
+  height: 16px;
+}
+
+.size-md .dot {
+  width: 8px;
+  height: 8px;
+}
+
+.size-lg {
+  gap: var(--space-100);
+  padding: var(--space-100) var(--space-200);
+  font-size: var(--font-size-label-l);
+  line-height: var(--line-height-label-l);
+  letter-spacing: var(--letter-spacing-label-l);
+}
+
+.size-lg .icon {
+  width: 24px;
+  height: 24px;
+}
+
+.size-lg .dot {
+  width: 10px;
+  height: 10px;
+}

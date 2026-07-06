@@ -1,0 +1,41 @@
+.navbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-300);
+  width: 100%;
+  padding: var(--space-200) var(--space-600);
+  background: var(--color-page);
+  box-sizing: border-box;
+}
+
+/* Tablet — reduce horizontal padding so the actions don't push the logo out. */
+@media (max-width: 768px) {
+  .navbar {
+    padding: var(--space-200) var(--space-400);
+  }
+}
+
+/* Phone — further reduce; mobile-specific layout will replace this when Figma
+   delivers the mobile frame (collapsing labels, hamburger, etc.). */
+@media (max-width: 480px) {
+  .navbar {
+    padding: var(--space-200) var(--space-300);
+  }
+}
+
+.brand {
+  display: flex;
+  align-items: center;
+  min-width: 0;
+  color: var(--text-headings);
+}
+
+.actions {
+  display: flex;
+  align-items: center;
+  gap: var(--space-100);
+  min-width: 0;
+  /* Keep actions right-aligned even when there is no brand on the left. */
+  margin-left: auto;
+}

@@ -1,0 +1,142 @@
+.tree {
+  /* Gutter = one indentation step; the guide line sits `--tree-guide` from its
+     left edge so the elbow lines up under the parent's caret. */
+  --tree-gutter: 20px;
+  --tree-guide: 9px;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+}
+
+.label {
+  margin-bottom: var(--space-100);
+}
+
+/* ---------- Row (one node) ---------- */
+.row {
+  display: flex;
+  align-items: stretch;
+  min-height: 36px;
+}
+
+/* A fixed-width gutter column to the left of a node — hosts the guide lines. */
+.gutter {
+  position: relative;
+  width: var(--tree-gutter);
+  flex-shrink: 0;
+}
+
+/* Vertical connector line shared by the ancestor guides and the elbow stem. */
+.guide {
+  position: absolute;
+  left: var(--tree-guide);
+  width: var(--border-width-default);
+  background: var(--border-default-default-lighter);
+}
+
+/* Ancestor guide / non-last elbow stem: spans the full row height. */
+.guideFull {
+  top: 0;
+  bottom: 0;
+}
+
+/* Last-child elbow stem: stops halfway, at the elbow. */
+.guideLast {
+  top: 0;
+  height: 50%;
+}
+
+/* Horizontal elbow stroke into the node. */
+.elbow {
+  position: absolute;
+  top: 50%;
+  left: var(--tree-guide);
+  right: 2px;
+  height: var(--border-width-default);
+  background: var(--border-default-default-lighter);
+}
+
+/* On-path connector: accents the route from the root down to the selected node
+   so the trail stands out against the default guides. */
+.guideOnPath,
+.elbowOnPath {
+  background: var(--icon-action-tertiary);
+}
+
+/* ---------- Node body ---------- */
+.body {
+  display: flex;
+  flex-direction: column;
+  flex: 1 1 0;
+  min-width: 0;
+  gap: var(--space-200);
+}
+
+/* Nodes carrying progress boxes sit in a bordered container. */
+.bodyBoxed {
+  border: var(--border-width-default) solid var(--border-default-default-lighter);
+  border-radius: var(--radius-md);
+  padding: var(--space-100);
+}
+
+.button {
+  display: flex;
+  align-items: center;
+  gap: var(--space-100);
+  width: 100%;
+  min-width: 0;
+  border: 0;
+  cursor: pointer;
+  text-align: left;
+  padding: var(--space-100) var(--space-200);
+  border-radius: var(--radius-sm);
+  background: transparent;
+}
+
+/* Whole row is the click target, so it needs a visible hover affordance.
+   Selected wins over hover. */
+.button:hover:not(.buttonSelected) {
+  background: var(--surface-default-hover);
+}
+
+.buttonSelected {
+  background: var(--surface-default-default-2);
+}
+
+.caret {
+  flex-shrink: 0;
+  color: var(--icon-body);
+}
+
+/* Keeps leaf rows aligned with rows that have a caret. */
+.caretSpacer {
+  width: 14px;
+  flex-shrink: 0;
+}
+
+.title {
+  flex: 1 1 0;
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  font-family: var(--font-family-sans);
+  font-size: var(--font-size-b2);
+  line-height: var(--line-height-b2);
+  font-weight: var(--font-weight-regular);
+  color: var(--text-body);
+}
+
+.titleSelected {
+  font-weight: var(--font-weight-medium);
+  color: var(--text-action-tertiary);
+}
+
+/* ---------- Progress boxes ---------- */
+.metrics {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-100);
+  padding-left: var(--space-200);
+  padding-bottom: var(--space-100);
+}

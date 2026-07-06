@@ -1,0 +1,19 @@
+node_modules
+dist
+storybook-static
+.DS_Store
+*.log
+.env
+.env.*
+!.env.example
+.vite
+coverage
+.idea
+.vscode/*
+!.vscode/extensions.json
+
+# QA screenshots dropped in repo root
+/navbar-*.png
+/divider-*.png
+/button-*.png
+/pin-*.png

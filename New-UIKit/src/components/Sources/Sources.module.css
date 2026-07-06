@@ -1,0 +1,59 @@
+.sources {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-50);
+}
+
+/* Index — Aeonik / label-S, capitalize. */
+.number {
+  font-family: var(--font-family-sans);
+  font-weight: var(--font-weight-regular);
+  font-size: var(--font-size-label-s);
+  line-height: var(--line-height-label-s);
+  letter-spacing: var(--letter-spacing-label-s);
+  text-transform: capitalize;
+  color: var(--text-labels);
+  white-space: nowrap;
+}
+
+/* 4px separator dot (smaller than the Dot component's sm = 8px). */
+.dot {
+  flex-shrink: 0;
+  width: 4px;
+  height: 4px;
+  border-radius: var(--radius-full);
+  background: var(--text-labels);
+}
+
+/* Link — Aeonik / B3, link colour, external icon. */
+.link {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-100);
+  padding: var(--space-50) var(--space-100);
+  color: var(--text-link);
+  text-decoration: none;
+  cursor: pointer;
+}
+
+.link:hover {
+  color: var(--text-link-hover);
+}
+
+.link:focus-visible {
+  outline: none;
+  border-radius: var(--radius-2xs);
+  box-shadow: var(--shadow-focus);
+}
+
+.link-label {
+  font-family: var(--font-family-sans);
+  font-weight: var(--font-weight-regular);
+  font-size: var(--font-size-b3);
+  line-height: var(--line-height-b3);
+  letter-spacing: var(--letter-spacing-b3);
+}
+
+.link-icon {
+  flex-shrink: 0;
+}

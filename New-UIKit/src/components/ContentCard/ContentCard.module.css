@@ -1,0 +1,138 @@
+.card {
+  display: flex;
+  width: 100%;
+  background: var(--surface-default-default-3);
+}
+
+/* ---------- Sizes — outer padding (layout-independent) ---------- */
+.size-lg {
+  padding: var(--space-200) var(--space-300);
+}
+.size-md {
+  padding: var(--space-100) var(--space-200);
+}
+.size-sm {
+  padding: var(--space-100);
+}
+
+/* Horizontal — pill, badges + text on the left, button pushed right. */
+.horizontal {
+  align-items: center;
+  justify-content: space-between;
+  border-radius: var(--radius-full);
+}
+
+/* Vertical — rounded box, content stacked, button bottom-right. */
+.vertical {
+  flex-direction: column;
+  align-items: flex-start;
+  gap: var(--space-200);
+  border-radius: var(--radius-md);
+}
+/* sm box tightens its corner radius. */
+.vertical.size-sm {
+  border-radius: var(--radius-sm);
+}
+
+/* ---------- Content group (badges + icon + text) ---------- */
+.group {
+  display: flex;
+  gap: var(--space-200);
+}
+
+.horizontal .group {
+  align-items: center;
+}
+
+.vertical .group {
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: center;
+}
+
+/* Tighter group gap on the compact sizes. */
+.horizontal.size-md .group,
+.horizontal.size-sm .group,
+.vertical.size-sm .group {
+  gap: var(--space-100);
+}
+
+/* Vertical: icon sits inline with the text. */
+.iconText {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--space-200);
+}
+.size-sm .iconText {
+  align-items: center;
+  gap: var(--space-100);
+}
+
+/* ---------- Leading icon ---------- */
+.icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  color: var(--icon-body);
+}
+
+.icon svg {
+  width: 100%;
+  height: 100%;
+}
+
+.size-lg .icon {
+  width: 24px;
+  height: 24px;
+}
+.size-md .icon {
+  width: 16px;
+  height: 16px;
+}
+.size-sm .icon {
+  width: 14px;
+  height: 14px;
+}
+
+/* ---------- Text (Aeonik Medium — B1/B2/B3 per size) ---------- */
+.text {
+  font-family: var(--font-family-sans);
+  font-weight: var(--font-weight-medium);
+  color: var(--text-body);
+  white-space: nowrap;
+}
+
+.size-lg .text {
+  font-size: var(--font-size-b1);
+  line-height: var(--line-height-b1);
+  letter-spacing: var(--letter-spacing-b1);
+}
+.size-md .text {
+  font-size: var(--font-size-b2);
+  line-height: var(--line-height-b2);
+  letter-spacing: var(--letter-spacing-b2);
+}
+.size-sm .text {
+  font-size: var(--font-size-b3);
+  line-height: var(--line-height-b3);
+  letter-spacing: var(--letter-spacing-b3);
+}
+
+/* ---------- Action button ---------- */
+/* sm: borderless + compact (Figma 24×18, icon 14). Two-class selector wins
+   over Button's own single-class size rules without touching the Button. */
+.size-sm .action {
+  width: 24px;
+  height: 18px;
+  min-height: 0;
+  border: 0;
+  padding: var(--space-50) 0;
+}
+
+/* ---------- Footer (vertical: button bottom-right) ---------- */
+.footer {
+  display: flex;
+  justify-content: flex-end;
+  width: 100%;
+}

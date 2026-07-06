@@ -1,0 +1,105 @@
+.card {
+  display: flex;
+  align-items: center;
+  gap: var(--space-200);
+  width: 100%;
+  padding-left: var(--space-400);
+  padding-right: 0;
+  border-radius: var(--radius-md);
+  overflow: hidden;
+  background: var(--surface-default-default-2);
+  color: var(--text-body);
+}
+
+/* ---------- Left column (title + description + badges) ---------- */
+.main {
+  display: flex;
+  flex-shrink: 0;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: var(--space-400);
+  padding-block: var(--space-400);
+}
+
+/* Width presets — Figma "x/5" (all multiples of 4). */
+.main-1-5 {
+  width: 200px;
+}
+
+.main-2-5 {
+  width: 440px;
+}
+
+.main-3-5 {
+  width: 680px;
+}
+
+.main-4-5 {
+  width: 908px;
+}
+
+.header {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: var(--space-200);
+  width: 100%;
+}
+
+.title {
+  margin: 0;
+  font-family: var(--font-family-sans);
+  font-weight: var(--font-weight-medium);
+  font-size: var(--font-size-h5);
+  line-height: var(--line-height-h5);
+  letter-spacing: var(--letter-spacing-h5);
+}
+
+.description {
+  margin: 0;
+  font-family: var(--font-family-sans);
+  font-weight: var(--font-weight-regular);
+  font-size: var(--font-size-b2);
+  line-height: var(--line-height-b2);
+  letter-spacing: var(--letter-spacing-b2);
+}
+
+/* ---------- Badge info group ---------- */
+.info {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: var(--space-100);
+  width: 100%;
+}
+
+.label {
+  font-family: var(--font-family-sans);
+  font-weight: var(--font-weight-regular);
+  font-size: var(--font-size-label-xs);
+  line-height: var(--line-height-label-xs);
+  letter-spacing: var(--letter-spacing-label-xs);
+  text-transform: capitalize;
+  color: var(--text-labels);
+}
+
+.badges {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-start;
+  align-content: flex-start;
+  gap: var(--space-200);
+  width: 100%;
+}
+
+/* ---------- Right-hand slot (table) ---------- */
+.slot {
+  display: flex;
+  /* Figma is `flex: 1 0 0`; we allow shrink (1 1 0) + min-width:0 so the
+     fixed-width .main + fluid card stay responsive instead of overflowing. */
+  flex: 1 1 0;
+  align-self: stretch;
+  align-items: flex-start;
+  min-width: 0;
+  overflow: hidden;
+}

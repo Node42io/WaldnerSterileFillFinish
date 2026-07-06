@@ -1,0 +1,67 @@
+/* ---------- Track ---------- */
+.group {
+  display: inline-flex;
+  align-items: stretch;
+  gap: var(--space-50);
+  padding: var(--space-50);
+  border: var(--border-width-default) solid var(--border-default-default-lighter);
+  border-radius: var(--radius-md);
+  background: var(--surface-default-default-2);
+}
+
+/* ---------- Box (icon and/or label) ---------- */
+.item {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-100);
+  padding: var(--space-100) var(--space-200);
+  /* Transparent border reserves space so the selected state adds no shift. */
+  border: var(--border-width-default) solid transparent;
+  border-radius: var(--radius-sm);
+  background: transparent;
+  color: var(--text-description);
+  font-family: var(--font-family-sans);
+  font-weight: var(--font-weight-regular);
+  font-size: var(--font-size-b2);
+  line-height: var(--line-height-b2);
+  letter-spacing: var(--letter-spacing-b2);
+  cursor: pointer;
+  transition:
+    background-color var(--duration-fast) var(--easing-standard),
+    color var(--duration-fast) var(--easing-standard);
+}
+
+.item:hover:not(:disabled):not(.selected) {
+  background: var(--surface-default-hover);
+  color: var(--text-body);
+}
+
+.item:focus-visible {
+  outline: none;
+  box-shadow: var(--shadow-focus);
+}
+
+/* ---------- Selected (solid accent fill) ---------- */
+.selected {
+  background: var(--surface-default-selected-strong);
+  color: var(--text-on-selected-strong);
+  font-weight: var(--font-weight-medium);
+}
+
+/* ---------- Disabled ---------- */
+.item:disabled {
+  color: var(--text-action-disabled);
+  cursor: not-allowed;
+}
+
+/* ---------- Icon (inherits the box's currentColor) ---------- */
+.icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.label {
+  white-space: nowrap;
+}

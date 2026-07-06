@@ -1,0 +1,62 @@
+/* Minimal reset — the real design tokens come from @node42/ui-kit
+   (its barrel imports tokens.css + globals.css automatically). */
+* {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  margin: 0;
+  padding: 0;
+}
+
+#root {
+  min-height: 100vh;
+}
+
+/* Lift the page title a bit: the kit's PageTemplate <main> pads 24px all round;
+   trim just the top so the title sits closer to the navbar. */
+main {
+  padding-top: var(--space-300);
+}
+
+/* Unify the SearchBar with the outline Dropdown buttons: the dropdown's radius
+   (radius-sm) + the searchbar's lighter border colour, applied to both so the
+   toolbar reads as one control set. Height/font already align via size="sm".
+   The class is doubled to out-specify the kit's own `.box` rule (radius-xs),
+   which otherwise wins on source order at equal single-class specificity. */
+.odi-searchbar.odi-searchbar {
+  border-radius: var(--radius-sm);
+  border-color: var(--border-default-default-lighter);
+}
+
+/* Value Network search: stretch to fill its fixed-width tree column. The kit's
+   `.box` sets a fixed width per size — the doubled class out-specifies it. */
+.vn-searchbar.vn-searchbar {
+  width: 100%;
+}
+
+/* Sticky table header: the kit Table wraps itself as frame > scroll > table,
+   and its inner `scroll` div (overflow:auto) is what a sticky <th> anchors to.
+   Constrain that inner div's height so the header stays fixed while the body
+   scrolls. Selector: wrapper > .frame > .scroll. */
+.odi-tablescroll > div > div {
+  max-height: 68vh;
+  overflow: auto;
+}
+
+/* Sort affordance: the kit renders an always-present caret button
+   (aria-label="Sort") in every sortable header — a faint up/down chevron when
+   inactive. Boost its contrast so columns without an info icon (Stakeholder,
+   Job, Need) still read as sortable; the active column's solid caret stands out
+   further on hover. */
+.odi-tablescroll thead th button[aria-label='Sort'] {
+  color: var(--icon-body);
+  opacity: 0.65;
+}
+.odi-tablescroll thead th button[aria-label='Sort']:hover,
+.odi-tablescroll thead th[aria-sort='ascending'] button[aria-label='Sort'],
+.odi-tablescroll thead th[aria-sort='descending'] button[aria-label='Sort'] {
+  opacity: 1;
+  color: var(--icon-action-tertiary);
+}

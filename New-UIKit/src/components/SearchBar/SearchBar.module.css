@@ -1,0 +1,72 @@
+.box {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-100);
+  box-sizing: border-box;
+  border: var(--border-width-default) solid var(--border-default-default-lighter);
+  border-radius: var(--radius-xs);
+  background: var(--surface-default-default);
+  overflow: hidden;
+  transition: border-color var(--duration-fast) var(--easing-standard);
+}
+
+/* Active/focus: tertiary border (mirrors InputField, no focus ring). */
+.box:focus-within {
+  border-color: var(--tertiary-default);
+}
+
+/* ---------- Sizes (match the navbar Button heights) ---------- */
+.size-xs {
+  height: 24px;
+  width: 180px;
+  padding-inline: var(--space-200);
+}
+
+.size-sm {
+  height: 32px;
+  width: 220px;
+  padding-inline: var(--space-300);
+}
+
+/* ---------- Icon ---------- */
+.icon {
+  flex-shrink: 0;
+  color: var(--icon-description);
+}
+
+/* ---------- Input (Aeonik / B3 at xs, B2 at sm) ---------- */
+.input {
+  flex: 1 1 0;
+  min-width: 0;
+  margin: 0;
+  padding: 0;
+  border: 0;
+  background: transparent;
+  font-family: var(--font-family-sans);
+  font-weight: var(--font-weight-regular);
+  font-size: var(--font-size-b3);
+  line-height: var(--line-height-b3);
+  letter-spacing: var(--letter-spacing-b3);
+  color: var(--text-body);
+}
+
+.size-sm .input {
+  font-size: var(--font-size-b2);
+  line-height: var(--line-height-b2);
+  letter-spacing: var(--letter-spacing-b2);
+}
+
+.input::placeholder {
+  color: var(--text-placeholder);
+}
+
+.input:focus {
+  outline: none;
+}
+
+/* Drop the native search decorations so the field matches the design system. */
+.input::-webkit-search-decoration,
+.input::-webkit-search-cancel-button {
+  appearance: none;
+  -webkit-appearance: none;
+}

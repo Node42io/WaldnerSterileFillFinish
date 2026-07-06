@@ -1,0 +1,90 @@
+.cell {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: var(--space-200);
+  padding: var(--space-200);
+}
+
+/* ---------- Surface shade ---------- */
+.variant-dark {
+  background: var(--surface-default-default-3);
+}
+
+.variant-light {
+  background: var(--surface-default-default-2);
+}
+
+/* ---------- Title (Aeonik / label-XS, capitalize) ---------- */
+.title {
+  font-family: var(--font-family-sans);
+  font-weight: var(--font-weight-regular);
+  font-size: var(--font-size-label-xs);
+  line-height: var(--line-height-label-xs);
+  letter-spacing: var(--letter-spacing-label-xs);
+  text-transform: capitalize;
+  color: var(--text-labels);
+}
+
+/* ---------- Main text (Aeonik Medium / B1) ---------- */
+.main {
+  font-family: var(--font-family-sans);
+  font-weight: var(--font-weight-medium);
+  font-size: var(--font-size-b1);
+  line-height: var(--line-height-b1);
+  letter-spacing: var(--letter-spacing-b1);
+  color: var(--text-body);
+}
+
+/* ---------- Score (value + /max) ---------- */
+.score {
+  display: flex;
+  align-items: center;
+  gap: var(--space-50);
+}
+
+.value {
+  font-family: var(--font-family-sans);
+  font-weight: var(--font-weight-medium);
+  font-size: var(--font-size-h5);
+  line-height: var(--line-height-h5);
+  letter-spacing: var(--letter-spacing-h5);
+  color: var(--text-body);
+}
+
+.max {
+  font-family: var(--font-family-sans);
+  font-weight: var(--font-weight-regular);
+  font-size: var(--font-size-label-xs);
+  line-height: var(--line-height-label-xs);
+  letter-spacing: var(--letter-spacing-label-xs);
+  text-transform: capitalize;
+  color: var(--text-description);
+}
+
+/* ---------- Badge group ---------- */
+.badges {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--space-200);
+}
+
+.badges-vertical {
+  flex-direction: column;
+}
+
+.badges-horizontal {
+  flex-direction: row;
+  flex-wrap: wrap;
+  align-content: flex-start;
+}
+
+/* ---------- Description (Aeonik / B3) ---------- */
+.description {
+  font-family: var(--font-family-sans);
+  font-weight: var(--font-weight-regular);
+  font-size: var(--font-size-b3);
+  line-height: var(--line-height-b3);
+  letter-spacing: var(--letter-spacing-b3);
+  color: var(--text-description);
+}

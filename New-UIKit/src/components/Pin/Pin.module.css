@@ -1,0 +1,136 @@
+.pin {
+  display: inline-flex;
+  align-items: flex-start;
+  gap: var(--space-100);
+  padding: 0;
+  background: transparent;
+  border: 0;
+  font-family: var(--font-family-sans);
+  cursor: pointer;
+  color: inherit;
+}
+
+.pin:focus-visible {
+  outline: none;
+}
+
+.pin:focus-visible .marker {
+  box-shadow: var(--shadow-focus);
+}
+
+.pin:disabled {
+  cursor: not-allowed;
+  opacity: 0.6;
+}
+
+/* ---------- Marker (the circular/pill pin head) ---------- */
+.marker {
+  display: inline-flex;
+  align-items: center;
+  padding: var(--space-100);
+  border-radius: var(--radius-full);
+  background: var(--surface-action-secondary-default);
+  color: var(--icon-on-action-secondary);
+  flex-shrink: 0;
+  transition:
+    background-color var(--duration-fast) var(--easing-standard),
+    color var(--duration-fast) var(--easing-standard);
+}
+
+.variant-selected .marker {
+  background: var(--surface-action-primary-default);
+  color: var(--icon-on-action-primary);
+}
+
+/* ---------- Hover (default + group only; selected has no hover) ---------- */
+.pin.variant-default:hover:not(:disabled) .marker,
+.pin.variant-group:hover:not(:disabled) .marker {
+  background: var(--surface-action-secondary-hover);
+}
+
+.pin.variant-default:hover:not(:disabled) .label {
+  background: var(--surface-default-hover);
+}
+
+/* ---------- Group: marker becomes a pill with count ---------- */
+.variant-group .marker {
+  gap: var(--space-100);
+  padding: var(--space-100) var(--space-300) var(--space-100) var(--space-100);
+}
+
+.count {
+  font-family: var(--font-family-sans);
+  font-weight: var(--font-weight-regular);
+  font-size: var(--font-size-h5);
+  line-height: var(--line-height-h5);
+  letter-spacing: var(--letter-spacing-h5);
+  color: var(--text-headings);
+}
+
+/* ---------- Label rectangle (default + selected) ---------- */
+.label {
+  display: inline-flex;
+  flex-direction: column;
+  justify-content: center;
+  align-self: stretch;
+  gap: var(--space-200);
+  padding: var(--space-100) var(--space-200);
+  background: var(--surface-default-default-2);
+  border-radius: var(--radius-xs);
+  text-align: left;
+  overflow: hidden;
+}
+
+.name {
+  font-family: var(--font-family-sans);
+  font-weight: var(--font-weight-medium);
+  font-size: var(--font-size-b1);
+  line-height: var(--line-height-b1);
+  letter-spacing: var(--letter-spacing-b1);
+  color: var(--text-body);
+  white-space: nowrap;
+}
+
+.address {
+  font-family: var(--font-family-sans);
+  font-weight: var(--font-weight-regular);
+  font-size: var(--font-size-b2);
+  line-height: var(--line-height-b2);
+  letter-spacing: var(--letter-spacing-b2);
+  color: var(--text-description);
+  white-space: pre-line;
+}
+
+/* ---------- Small size (16px icon) ---------- */
+/* Group pill: tighter horizontal padding + gap */
+.pin.size-small.variant-group .marker {
+  gap: var(--space-50);
+  padding: var(--space-100) var(--space-200) var(--space-100) var(--space-100);
+}
+
+/* Count: B2 Medium instead of H5 Regular */
+.size-small .count {
+  font-weight: var(--font-weight-medium);
+  font-size: var(--font-size-b2);
+  line-height: var(--line-height-b2);
+  letter-spacing: var(--letter-spacing-b2);
+}
+
+/* Name: B2 Medium instead of B1 Medium */
+.size-small .name {
+  font-size: var(--font-size-b2);
+  line-height: var(--line-height-b2);
+  letter-spacing: var(--letter-spacing-b2);
+}
+
+/* Address: B3 Regular instead of B2 Regular */
+.size-small .address {
+  font-size: var(--font-size-b3);
+  line-height: var(--line-height-b3);
+  letter-spacing: var(--letter-spacing-b3);
+}
+
+/* Selected label uses a tighter gap between name and address */
+.pin.size-small.variant-selected .label {
+  gap: var(--space-100);
+}
