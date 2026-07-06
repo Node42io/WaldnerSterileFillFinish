@@ -22,6 +22,11 @@ jobs:
       - uses: actions/setup-node@v4
         with:
           node-version: 22
+      # The app compiles the kit from source (vite alias + tsconfig paths), so the
+      # kit's own node_modules must exist for react/type resolution from its folder.
+      - name: Install UI kit deps
+        working-directory: New-UIKit
+        run: npm install --no-audit --no-fund
       - name: Install and build
         working-directory: "ODI _ waldner"
         env:
