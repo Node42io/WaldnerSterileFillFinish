@@ -145,12 +145,12 @@ function treeText(n: VNNode): ReactNode {
 }
 
 const nodeById = new Map<string, VNNode>()
-// Ids expanded on first render: every L7 and L6 node, so the tree opens down to
-// (and including) L6a — deeper levels stay collapsed to keep 6.6k nodes snappy.
+// Ids expanded on first render: only the L7 root, so the first view shows the
+// root plus its L6 children (collapsed) — deeper levels open on demand.
 const defaultExpandedIds: string[] = []
 function toTreeNode(n: VNNode, badge: string): TreeNode {
   nodeById.set(n.id, n)
-  if (n.level === 'L7' || n.level === 'L6') defaultExpandedIds.push(n.id)
+  if (n.level === 'L7') defaultExpandedIds.push(n.id)
   const node: TreeNode = { id: n.id, badge, text: treeText(n), badgeStyle: levelStyle(n.level) }
   if (n.children?.length) {
     const perLevel: Record<string, number> = {}
@@ -616,7 +616,7 @@ function ValueNetworkCard() {
           <div style={{ maxHeight: '70vh', overflow: 'auto' }}>
             <TreeView
               // Remount when the query changes so the expanded set is re-seeded:
-              // all matches open while filtering, back to the L6a depth otherwise.
+              // all matches open while filtering, back to the L7-only view otherwise.
               key={query}
               nodes={filtered}
               defaultExpandedIds={query ? allNodeIds(filtered) : defaultExpandedIds}
