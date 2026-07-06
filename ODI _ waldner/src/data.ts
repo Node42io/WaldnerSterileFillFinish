@@ -97,19 +97,24 @@ export interface OdiIndexEntry {
 
 export interface OdiStakeholder {
   role: string
-  title: string
-  esco_code: string
+  /** Stakeholder title — null in the graph for a handful of roles. */
+  title: string | null
+  /** ESCO occupation code — null in the graph for a handful of roles. */
+  esco_code: string | null
   n: number
+  /** The core functional job as held by this specific stakeholder. */
   cfj_for_stakeholder: string
-  confidence: number
+  confidence: number | null
 }
 
 /** One rated desired-outcome (need) row for a unit. */
 export interface OdiRow {
-  stk: string
+  /** Stakeholder title — null in the graph for a handful of roles. */
+  stk: string | null
   role: string
   role_label: string
-  esco_code: string
+  /** ESCO occupation code — null in the graph for a handful of roles. */
+  esco_code: string | null
   job_type: string
   source_job: string
   stmt: string
@@ -180,6 +185,14 @@ export const ROLE_LABEL: Record<string, string> = {
   purchase_influencer: 'Purchase influencer',
   purchase_executor: 'Purchase executor',
 }
+
+/**
+ * Display title for a stakeholder. A handful of roles carry a null title in
+ * the graph — fall back to the role label rather than rendering blank text.
+ * Display-layer only; the exported JSON is never patched.
+ */
+export const stakeholderTitle = (title: string | null | undefined, roleLabel: string): string =>
+  title || roleLabel
 
 // --- Derived lookups (built once) --------------------------------------------
 

@@ -23,8 +23,9 @@ import {
   odiIndex,
   ROLE_LABEL,
   ROLE_ORDER,
+  stakeholderTitle,
 } from './data'
-import type { OdiRow, OdiStakeholder, OdiUnitData } from './data'
+import type { OdiRow, OdiUnitData } from './data'
 import { Dropdown } from './Dropdown'
 import { FieldLabel } from './FieldLabel'
 import { Checkbox } from './Checkbox'
@@ -66,6 +67,11 @@ function satVariant(band: string): BadgeVariant {
 }
 
 const meanConf = (r: OdiRow) => Math.round((r.imp_conf + r.sat_conf) / 2)
+
+// Display title for a need row's stakeholder — role-label fallback for the
+// rows whose title is null in the graph. Used for the cell text, the filter
+// values and the search haystack, so filtering stays consistent throughout.
+const rowStk = (r: OdiRow): string => stakeholderTitle(r.stk, ROLE_LABEL[r.role])
 
 // ODI innovation status from the importance vs. satisfaction gap: underserved
 // (importance outruns satisfaction), overserved (the reverse), or served.
@@ -180,6 +186,9 @@ const unitOptions = [...odiIndex]
   .sort((a, b) => b.top_opportunity - a.top_opportunity || a.unit_name.localeCompare(b.unit_name))
   .map((e) => ({
     value: e.slug,
+    // The label is a React element, so give the in-menu filter the unit name
+    // to match against (the slug alone breaks multi-word/punctuated queries).
+    searchText: e.unit_name,
     label: (
       <span style={{ display: 'inline-flex', alignItems: 'center', gap: 'var(--space-200)', minWidth: 0 }}>
         <Badge variant="color" size="xs" style={levelBadgeStyle(e.level)}>{e.level}</Badge>
@@ -270,6 +279,24 @@ export function ODIMatrix() {
     [stakeholders],
   )
 
+  // Stakeholder filter options — one per distinct display title. Null-title
+  // roles fall back to their role label, so several may share one value; they
+  // merge into a single option with their rating counts summed. The ESCO
+  // segment renders only when the graph carries a code.
+  const stkOptions = useMemo(() => {
+    const byTitle = new Map<string, { role: string; esco: string | null; n: number }>()
+    for (const s of orderedStakeholders) {
+      const title = stakeholderTitle(s.title, ROLE_LABEL[s.role])
+      const prev = byTitle.get(title)
+      if (prev) prev.n += s.n
+      else byTitle.set(title, { role: s.role, esco: s.esco_code, n: s.n })
+    }
+    return Array.from(byTitle, ([title, m]) => ({
+      value: title,
+      label: `${title === ROLE_LABEL[m.role] ? '' : `${ROLE_LABEL[m.role]} · `}${title}${m.esco ? ` · ESCO ${m.esco}` : ''} (${m.n})`,
+    }))
+  }, [orderedStakeholders])
+
   // Unique jobs for the Job filter dropdown.
   const jobOptions = useMemo(
     () => Array.from(new Set(rowsData.map((r) => r.source_job))).sort((a, b) => a.localeCompare(b)),
@@ -280,9 +307,9 @@ export function ODIMatrix() {
     const q = query.trim().toLowerCase()
     return rowsData.filter(
       (r) =>
-        (stk.length === 0 || stk.includes(r.stk)) &&
+        (stk.length === 0 || stk.includes(rowStk(r))) &&
         (job.length === 0 || job.includes(r.source_job)) &&
-        (q === '' || r.stmt.toLowerCase().includes(q) || r.source_job.toLowerCase().includes(q) || r.stk.toLowerCase().includes(q)),
+        (q === '' || r.stmt.toLowerCase().includes(q) || r.source_job.toLowerCase().includes(q) || rowStk(r).toLowerCase().includes(q)),
     )
   }, [rowsData, stk, job, query])
 
@@ -497,7 +524,7 @@ export function ODIMatrix() {
                 placeholder="All stakeholders"
                 values={stk}
                 onToggle={toggleStk}
-                options={orderedStakeholders.map((s: OdiStakeholder) => ({ value: s.title, label: `${ROLE_LABEL[s.role]} · ${s.title} · ESCO ${s.esco_code} (${s.n})` }))}
+                options={stkOptions}
               />
             ))}
             {field('Job', (
@@ -599,11 +626,12 @@ export function ODIMatrix() {
                       </Table.Cell>
                       {/* Opportunity */}
                       <Table.Cell style={topCell}>{stackCell(r.opp.toFixed(1), <Badge variant={oppVariant(r.opp)} size="xs">{oppWord(r.opp)}</Badge>)}</Table.Cell>
-                      {/* Stakeholder — title, role and ESCO code */}
+                      {/* Stakeholder — title (role-label fallback), role and,
+                          where the graph carries one, the ESCO code */}
                       <Table.Cell style={topCell}>
                         <div style={{ display: 'flex', flexDirection: 'column' }}>
-                          <span>{r.stk}</span>
-                          <span style={{ ...mono, fontSize: 'var(--font-size-b4)', color: 'var(--text-labels)' }}>{r.role_label} · ESCO {r.esco_code}</span>
+                          <span>{rowStk(r)}</span>
+                          <span style={{ ...mono, fontSize: 'var(--font-size-b4)', color: 'var(--text-labels)' }}>{r.role_label}{r.esco_code ? ` · ESCO ${r.esco_code}` : ''}</span>
                         </div>
                       </Table.Cell>
                       {/* Job */}

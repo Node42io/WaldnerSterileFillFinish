@@ -15,6 +15,10 @@ import { Checkbox } from './Checkbox'
 export interface DropdownOption {
   value: string
   label: ReactNode
+  /** Plain text the in-menu filter matches against (e.g. the unit name) — set
+   *  this when `label` is a React element, since the hyphenated `value` slug
+   *  won't match multi-word or punctuated queries. */
+  searchText?: string
 }
 
 export interface DropdownProps {
@@ -35,8 +39,10 @@ export interface DropdownProps {
   onToggle?: (value: string) => void
 }
 
-// Plain-text of an option label, for the in-menu filter.
-const labelText = (o: DropdownOption): string => (typeof o.label === 'string' ? o.label : o.value)
+// Plain-text of an option, for the in-menu filter: explicit searchText first,
+// then a string label, then the value slug as a last resort.
+const labelText = (o: DropdownOption): string =>
+  o.searchText ?? (typeof o.label === 'string' ? o.label : o.value)
 
 export function Dropdown({
   options,

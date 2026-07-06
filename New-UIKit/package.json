@@ -20,7 +20,8 @@
     "./styles.css": "./dist/styles.css"
   },
   "sideEffects": [
-    "**/*.css"
+    "**/*.css",
+    "**/*.scss"
   ],
   "scripts": {
     "dev": "vite",

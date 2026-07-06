@@ -6,7 +6,6 @@ import type { Icon } from '@phosphor-icons/react'
 import {
   Badge,
   Button,
-  ConfidenceBadge,
   Divider,
   InfoCard,
   InfoTooltip,
@@ -28,7 +27,9 @@ import {
   productsByUnitId,
   productUnitIds,
   ratedByUnitId,
+  ROLE_LABEL,
   ROLE_ORDER,
+  stakeholderTitle,
   valueNetwork,
 } from './data'
 import type { OdiUnitData, VNNode } from './data'
@@ -46,7 +47,7 @@ import type { OdiUnitData, VNNode } from './data'
 const headerStats: { label: string; value: number; tip: string }[] = [
   { label: 'Functional units', value: market.unit_count, tip: 'Functional units in the market value network, from the top-level production system (L7) down to granular modules (L3).' },
   { label: 'Rated units', value: market.rated_units, tip: 'Value-network units carried through the full Outcome-Driven Innovation (ODI) needs analysis.' },
-  { label: 'Stakeholder roles', value: market.stakeholder_roles, tip: 'Distinct stakeholder roles with rated needs across the analysed units, each with its ESCO occupation code.' },
+  { label: 'Rated stakeholder roles', value: market.stakeholder_roles, tip: 'Distinct stakeholder roles that hold rated needs across the analysed units — the rated subset, not every role in the graph.' },
   { label: 'Mapped needs', value: market.total_needs, tip: 'Rated desired-outcome (need) statements across all analysed units.' },
 ]
 
@@ -55,9 +56,10 @@ const headerStats: { label: string; value: number; tip: string }[] = [
 const NAICS_DESCRIPTION =
   'Sterile fill-finish manufacturing of pharmaceutical preparations — aseptic filling, stoppering and finishing of sterile drug product within controlled environments.'
 
-// Short "what it is" blurb for the Value Network card header.
+// Short "what it is" blurb for the Value Network card header. The unit count is
+// interpolated from market.json so it can never go stale on re-export.
 const VN_DESCRIPTION =
-  'The full ecosystem of functional units this market needs to produce its output — here, 6,616 units organised across levels, from the top-level sterile fill-finish production system down to granular modules.'
+  `The full ecosystem of functional units this market needs to produce its output — here, ${market.unit_count.toLocaleString('en-US')} units organised across levels, from the top-level sterile fill-finish production system down to granular modules.`
 
 function Section({ label, children }: { label: string; children: ReactNode }) {
   return (
@@ -227,15 +229,18 @@ const escoUrl = (esco: string) => `https://esco.ec.europa.eu/en/search-occupatio
 // --- Jobs-to-be-Done per stakeholder ------------------------------------------
 // Derived from the ODI needs rows: each row is a need tied to a source_job with
 // a job_type (core / emotional / status). We dedupe to the distinct jobs each
-// stakeholder holds (first-seen order). The first core job is surfaced as the
-// stakeholder's Core Functional Job; the remaining core jobs sit under Core Jobs.
+// stakeholder holds (first-seen order). The Core Functional Job is NOT derived
+// from these rows — it comes from the stakeholder's own cfj_for_stakeholder
+// field on the ODI export (see StakeholderSection); every core job stays under
+// Core Jobs. Keys use the display title (role-label fallback for null titles)
+// so lookups line up with the stakeholder cards.
 type JobKind = 'cfj' | 'core' | 'emotional' | 'status'
 type StakeholderJobs = Record<JobKind, string[]>
 
 function buildJobs(rows: OdiUnitData['rows']): Record<string, StakeholderJobs> {
   const acc: Record<string, { core: string[]; emotional: string[]; status: string[]; seen: Set<string> }> = {}
   for (const r of rows) {
-    const a = (acc[r.stk] ??= { core: [], emotional: [], status: [], seen: new Set<string>() })
+    const a = (acc[stakeholderTitle(r.stk, ROLE_LABEL[r.role])] ??= { core: [], emotional: [], status: [], seen: new Set<string>() })
     const key = `${r.job_type}::${r.source_job}`
     if (a.seen.has(key)) continue
     a.seen.add(key)
@@ -245,8 +250,7 @@ function buildJobs(rows: OdiUnitData['rows']): Record<string, StakeholderJobs> {
   }
   const out: Record<string, StakeholderJobs> = {}
   for (const [stk, a] of Object.entries(acc)) {
-    const [cfj, ...core] = a.core
-    out[stk] = { cfj: cfj ? [cfj] : [], core, emotional: a.emotional, status: a.status }
+    out[stk] = { cfj: [], core: a.core, emotional: a.emotional, status: a.status }
   }
   return out
 }
@@ -272,7 +276,8 @@ const ROLE_META: Record<string, { label: string; icon: Icon; desc: string }> = {
 // One stakeholder, collapsed to a single row by default: name + ESCO + a compact
 // job-mix summary (a coloured count per job kind). Expands to reveal every job,
 // grouped by kind — keeping the buying-centre section short until drilled into.
-function StakeholderCard({ name, esco, jobs }: { name: string; esco: string; jobs: StakeholderJobs }) {
+// The ESCO link renders only when the graph carries a code for this role.
+function StakeholderCard({ name, esco, jobs }: { name: string; esco: string | null; jobs: StakeholderJobs }) {
   const [open, setOpen] = useState(false)
   return (
     <div style={{ borderRadius: 'var(--radius-md)', background: 'var(--surface-default-default)', overflow: 'hidden' }}>
@@ -288,21 +293,23 @@ function StakeholderCard({ name, esco, jobs }: { name: string; esco: string; job
             <CaretDown size={14} weight="bold" style={{ flexShrink: 0, color: 'var(--icon-description)', transform: open ? 'rotate(180deg)' : 'none', transition: 'transform 120ms ease' }} />
             <Text variant="b2" weight="medium" as="span" style={{ flex: 1, minWidth: 0, overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>{name}</Text>
           </button>
-          <a
-            href={escoUrl(esco)}
-            target="_blank"
-            rel="noopener noreferrer"
-            onClick={(e) => e.stopPropagation()}
-            title={`Open ESCO ${esco} on esco.ec.europa.eu`}
-            style={{ display: 'inline-flex', alignItems: 'center', flexShrink: 0, textDecoration: 'none', color: 'inherit' }}
-          >
-            <Badge variant="color" size="xs">
-              <span style={{ display: 'inline-flex', alignItems: 'center', gap: 'var(--space-100)' }}>
-                ESCO {esco}
-                <ArrowSquareOut size={11} weight="regular" />
-              </span>
-            </Badge>
-          </a>
+          {esco ? (
+            <a
+              href={escoUrl(esco)}
+              target="_blank"
+              rel="noopener noreferrer"
+              onClick={(e) => e.stopPropagation()}
+              title={`Open ESCO ${esco} on esco.ec.europa.eu`}
+              style={{ display: 'inline-flex', alignItems: 'center', flexShrink: 0, textDecoration: 'none', color: 'inherit' }}
+            >
+              <Badge variant="color" size="xs">
+                <span style={{ display: 'inline-flex', alignItems: 'center', gap: 'var(--space-100)' }}>
+                  ESCO {esco}
+                  <ArrowSquareOut size={11} weight="regular" />
+                </span>
+              </Badge>
+            </a>
+          ) : null}
         </div>
         {/* Collapsed job-mix summary, indented under the name */}
         {!open && JOB_KINDS.some((k) => jobs[k.key].length) ? (
@@ -344,7 +351,7 @@ function StakeholderCard({ name, esco, jobs }: { name: string; esco: string; job
   )
 }
 
-function StakeholderGroup({ label, icon: RoleIcon, desc, roles }: { label: string; icon: Icon; desc: string; roles: { name: string; esco: string; jobs: StakeholderJobs }[] }) {
+function StakeholderGroup({ label, icon: RoleIcon, desc, roles }: { label: string; icon: Icon; desc: string; roles: { name: string; esco: string | null; jobs: StakeholderJobs }[] }) {
   return (
     <InfoCard
       style={{ minWidth: 0 }}
@@ -360,8 +367,9 @@ function StakeholderGroup({ label, icon: RoleIcon, desc, roles }: { label: strin
       }
     >
       <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--space-200)', width: '100%', minWidth: 0 }}>
-        {roles.map((role) => (
-          <StakeholderCard key={role.name} name={role.name} esco={role.esco} jobs={role.jobs} />
+        {/* Fallback names can repeat within a group, so the key carries the index. */}
+        {roles.map((role, i) => (
+          <StakeholderCard key={`${role.name}-${i}`} name={role.name} esco={role.esco} jobs={role.jobs} />
         ))}
       </div>
     </InfoCard>
@@ -369,6 +377,8 @@ function StakeholderGroup({ label, icon: RoleIcon, desc, roles }: { label: strin
 }
 
 // The buying centre for a rated unit, built from its lazy-loaded ODI export.
+// Each stakeholder's Core Functional Job is its own cfj_for_stakeholder from
+// the per-unit export; the row-derived jobs only fill the other three kinds.
 function StakeholderSection({ unit }: { unit: OdiUnitData }) {
   const jobsByStakeholder = useMemo(() => buildJobs(unit.rows), [unit])
   const groups = useMemo(
@@ -380,7 +390,11 @@ function StakeholderSection({ unit }: { unit: OdiUnitData }) {
         desc: ROLE_META[role].desc,
         roles: unit.stakeholders
           .filter((s) => s.role === role)
-          .map((s) => ({ name: s.title, esco: s.esco_code, jobs: jobsByStakeholder[s.title] ?? emptyJobs })),
+          .map((s) => {
+            const name = stakeholderTitle(s.title, ROLE_LABEL[role])
+            const jobs = jobsByStakeholder[name] ?? emptyJobs
+            return { name, esco: s.esco_code, jobs: { ...jobs, cfj: s.cfj_for_stakeholder ? [s.cfj_for_stakeholder] : [] } }
+          }),
       })).filter((g) => g.roles.length),
     [unit, jobsByStakeholder],
   )
@@ -637,11 +651,12 @@ export default function MarketPage() {
       titleId={slugify(market.segment_name)}
       description={
         <>
-          {/* NAICS + confidence sit between the title and the description text */}
+          {/* NAICS badges sit between the title and the description text. No
+              confidence badge here — market.json carries no confidence figure,
+              and we never invent one. */}
           <span style={{ display: 'flex', alignItems: 'center', gap: 'var(--space-200)', marginBottom: 'var(--space-300)', flexWrap: 'wrap' }}>
             <Badge variant="color" size="sm">NAICS: {market.naics_code}</Badge>
             <Badge variant="neutral" size="sm">{market.naics_title}</Badge>
-            <ConfidenceBadge value={96} />
           </span>
           <span style={{ display: 'block' }}>{NAICS_DESCRIPTION}</span>
         </>
